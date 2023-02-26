@@ -6,7 +6,7 @@ const nextConfig = {
     styledComponents: {
       ssr: true,
     },
-  },
+  }
 };
 
 module.exports = nextConfig;

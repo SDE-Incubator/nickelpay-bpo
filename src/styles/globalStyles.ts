@@ -34,6 +34,10 @@ const GlobalStyles = createGlobalStyle`
   #root, #__next {
     isolation: isolate;
   }
+
+  a {
+    text-decoration: none;
+  }
 `;
 
 export default GlobalStyles;

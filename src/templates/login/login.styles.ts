@@ -1,7 +1,7 @@
-import { Button, TextField, Avatar} from '@mui/material';
+import { Avatar} from '@mui/material';
 import styled from "styled-components";
 import Link from 'next/link';
-import Image from 'next/image';
+
 
 export const Container = styled.main`
   width: 100%;
@@ -19,20 +19,38 @@ export const Form = styled.form`
   width: 100%;
   padding: 20px;
   max-width: 540px;
-
   margin: 0 auto;
 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 30px;
+  /* gap: 30px; */
+
+  transition: all .7s;
+
+  @media (max-width: 580px) {
+    margin-top: 30px;
+  }
+
+
+  .errorRequired {
+    color: ${({theme}) => theme.icon[100]};
+    position: relative;
+    bottom: 12px;
+    font-family: "roboto";
+    align-self: flex-start;
+    font-size: 14px;
+  }
+
 
 `;
 
 export const ImageContainer = styled(Avatar)`
   width: 155px;
   height: 155px;
+
+  margin-bottom: 3rem;
 
   @media (max-width: 580px) {
     width: 120px;
@@ -47,6 +65,7 @@ export const StyleLink = styled(Link) `
   font-weight: ${({theme}) => theme.typography.h2.fontWeight};
 
   padding: 5px 8px;
+  margin-bottom: 3rem;
 
   align-self: flex-end;
 
@@ -62,35 +81,3 @@ export const StyleLink = styled(Link) `
 
 `
 
-export const ButtonStyle = styled(Button)`
-  background: ${({theme}) => theme.general[200]};
-  padding-right: 40px;
-  padding-left: 40px;
-
-  transition: all .2;
-  
-  &:hover {
-    background: #303F9F;
-  }
-
-`;
-
-export const Input = styled(TextField)({
-  '&': {
-    width: '100%'
-  },
-
-  '& label.Mui-focused': {
-    color: `#21285E`,
-  },
-  '& .MuiOutlinedInput-root': {
-    '& fieldset': {
-      borderColor: '#999591',
-    },
-
-    '&.Mui-focused fieldset': {
-      borderColor: '#21285E',
-    }
-  }
-  
-});

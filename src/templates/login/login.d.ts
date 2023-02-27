@@ -1,3 +1,4 @@
-export type TitleProps = {
-  size: `${string}rem`;
-};
+export type TloginForm = {
+    email: string;
+    password: string
+  }

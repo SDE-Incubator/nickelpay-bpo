@@ -1,0 +1,1 @@
+export {SideLogo} from "./sideLogo.components"

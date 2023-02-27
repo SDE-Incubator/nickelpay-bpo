@@ -1,8 +1,11 @@
 const theme = {
   general: {
     25: "#E8E8E8",
+    75: "#F5F5F5",
+    85: "#ffffff", // white
     100: "#F1EFEF", //off-white
     200: "#756B6B", //gray
+    250: "#303F9F", // blue hover button
     300: "#21285E", //dark blue
     350: "#3E3E42", //grayish
     400: "#1E1E1E", //black

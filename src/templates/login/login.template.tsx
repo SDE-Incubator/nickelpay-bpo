@@ -1,4 +1,4 @@
-import { ButtonStyles } from '@/src/components/button'; 
+import { Button } from '@/src/components/button'; 
 import { Input } from '../../components/input'
 import { CircularProgress } from '@mui/material';
 import { useState } from 'react'
@@ -18,7 +18,7 @@ export function LoginTemplate() {
     },
     validationSchema: loginFormValidation,
     onSubmit: values => {
-      console.log("values", values)
+     
     }
   })
 
@@ -28,9 +28,10 @@ export function LoginTemplate() {
       <SideLogo />
 
       <Form onSubmit={handleSubmit}>
+        
         <ImageContainer src="https://source.unsplash.com/800x600/?face" alt="foto do usuario"/>
         <Input 
-          label="email"
+          label="Email"
           name="email"
           onChange={handleChange}
           onBlur={handleBlur}
@@ -47,7 +48,8 @@ export function LoginTemplate() {
 
 
         <Input 
-          label="senha"
+          label="Senha"
+          type="password"
           name="password"
           onChange={handleChange}
           onBlur={handleBlur}
@@ -63,7 +65,10 @@ export function LoginTemplate() {
 
         <StyleLink href="/esqueci-senha">Esqueci minha senha</StyleLink>
 
-        {isLoading ? < CircularProgress /> : <ButtonStyles type="submit" variant='contained' title="Entrar"/>}
+        {
+          isLoading ? < CircularProgress /> : <Button bghover='#303F9F' bgcolor='#756B6B' textcolor='#fff' width='8.8rem' type="submit" variant='contained'><span>Entrar</span></Button>
+          
+        }
 
       </Form>
 

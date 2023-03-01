@@ -1,85 +1,93 @@
-import { useRouter } from 'next/router';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import { Input } from "@/src/components/input"
-import { Text, Container} from "./recoverPassword.styles"
-import { Button } from '@/src/components/button';
-import { recoverPasswordFormProps, validationEmailProps } from './recoverPasswordForm';
+import {useRouter} from 'next/router'
+import {useFormik} from 'formik'
+import * as Yup from 'yup'
+import {Input} from '@/src/components/input'
+import {Text, Container} from './recoverPassword.styles'
+import {Button} from '@/src/components/button'
+import {RecoverPasswordFormProps, EmailForm} from './recoverPasswordForm'
+import {AxiosError} from 'axios'
+import {SWAlert} from '@/src/libs/toast'
+import {useMutation} from '@tanstack/react-query'
+import {getCodeToRecoverPassword} from '@/src/services/authentication/recoverPassword'
 
-
-
-export function RecoverPasswordForm ({onSubmit}: recoverPasswordFormProps) {
-
+export function RecoverPasswordForm({onNext}: RecoverPasswordFormProps) {
   const router = useRouter()
-  
+
+  const {isLoading, mutate} = useMutation(
+    async ({username}: EmailForm) => {
+      return getCodeToRecoverPassword({username})
+    },
+    {
+      mutationKey: ['username'],
+      onError: (error: unknown) => {
+        const {response} = error as AxiosError<{message: string}>
+        SWAlert.fire({
+          icon: 'error',
+          title: response?.data.message,
+        })
+      },
+      onSuccess: () => onNext('CODE'),
+    }
+  )
+
+  const {handleBlur, values, errors, handleChange, handleSubmit} =
+    useFormik<EmailForm>({
+      initialValues: {
+        username: '',
+      },
+      validationSchema: Yup.object<EmailForm>({
+        username: Yup.string()
+          .email('Email inválido')
+          .required('Email não pode ser vazio'),
+      }),
+      onSubmit: async ({username}) => {
+        mutate({username})
+      },
+    })
+
   function handleCancel() {
-    router.push("/entrar")
+    router.push('/entrar')
   }
 
-
-  const {handleBlur, values, errors, touched, handleChange, handleSubmit} = useFormik<validationEmailProps>({
-    initialValues: {
-      email: ''
-    },
-    validationSchema: Yup.object<validationEmailProps>({
-      email: Yup.string().email('Email inválido').required('Email não pode ser vazio')
-    }),
-    onSubmit: values => {
-      onSubmit()
-    },
-  })
-
-
-  return (     
-    <Container>        
-      <Text variant='subtitle1'> Digite seu email de cadastro e lhe enviaremos as informações por email </Text>
+  return (
+    <Container>
+      <Text variant="subtitle1">
+        Digite seu email de cadastro e lhe enviaremos as informações por email
+      </Text>
       <form onSubmit={handleSubmit}>
-
-        <Input 
-          label="Email" 
-          name='email'
+        <Input
+          label="Email"
+          name="username"
           onChange={handleChange}
           onBlur={handleBlur}
-          value={values.email}
-        />   
+          value={values.username}
+          inputError={errors?.username}
+        />
 
-        {touched.email && errors.email ? (
-          <div className='errorRequiredEmail'>{errors.email}</div>
-        ) : null}
-  
-
-        <div className='containerButton'>
-                    
-          <Button 
-            width='9.6rem' 
-              height='3rem' 
-              textcolor="#756B6B"
-              bordercolor="#756B6B"
-              variant='outlined' 
-              onClick={handleCancel}
-            > 
-              cancelar 
-                    
+        <div className="containerButton">
+          <Button
+            width="9.6rem"
+            height="3rem"
+            textcolor="#756B6B"
+            bordercolor="#756B6B"
+            variant="outlined"
+            onClick={handleCancel}>
+            Cancelar
           </Button>
-        
-          <Button 
-            bghover='#303F9F' 
-            bgcolor='#756B6B' 
-            textcolor='#fff' 
-            width='9.6rem' 
-            height='3rem'
-            variant='contained'
-            type="submit"
-          >
-            
-            Enviar
-        
-          </Button>  
-        
+
+          <Button
+            bghover="#303F9F"
+            bgcolor="#756B6B"
+            textcolor="#fff"
+            width="9.6rem"
+            height="3rem"
+            variant="contained"
+            disabled={isLoading}
+            type="submit">
+            {isLoading ? 'Carregando...' : 'Enviar'}
+          </Button>
         </div>
       </form>
-        
     </Container>
-      
   )
 }

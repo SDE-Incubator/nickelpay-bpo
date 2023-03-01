@@ -1,118 +1,127 @@
+import {useFormik} from 'formik'
+import * as Yup from 'yup'
+import {useRouter} from 'next/router'
+import {Button} from '@/src/components/button'
+import {Input} from '@/src/components/input'
+import {useEffect, useState} from 'react'
+import {Container, Text, ContentButton} from './recoverPassword.styles'
+import {RecoverPasswordCodeFormProps, CodeForm} from './recoverPassword'
+import {useMutation} from '@tanstack/react-query'
+import {setCodeToRecoverPassword} from '@/src/services/authentication/recoverPassword/recoverPassword.service'
+import {SWAlert} from '@/src/libs/toast'
+import {AxiosError} from 'axios'
 
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import { useRouter } from 'next/router';
-import { Button } from "@/src/components/button";
-import { Input } from "@/src/components/input";
-import { useEffect, useState } from "react";
-import { Container, Text, ContentButton } from "./recoverPassword.styles";
-import { recoverPasswordCodeFormProps } from './recoverPassword';
+export function RecoverPasswordCodeForm({
+  onNext,
+}: RecoverPasswordCodeFormProps) {
+  const [totalTimeInSeconds, setTotalTimeInSeconds] = useState(60)
 
-
-export function RecoverPasswordCodeForm() {
-
-
-    const [totalTimeInSeconds, setTotalTimeInSeconds] = useState( 60 )
-
-    const minute = Math.floor(totalTimeInSeconds / 60)
-    const seconds = totalTimeInSeconds % 60
-
-    const router = useRouter()
-
-    function handleResetTime() {
-      setTotalTimeInSeconds(60)
-    }
-
-    function handleBack() {
-      router.push("/entrar")
-    }
-  
-    useEffect(() => {
-        if(totalTimeInSeconds <= 0 ) {
-            return
-        }
-        const timeOut = setTimeout(() => {
-            setTotalTimeInSeconds(prevState => prevState - 1)
-        }, 1000)
-
-        return () => {
-            clearTimeout(timeOut)
-        }
-    }, [totalTimeInSeconds])
-    
-
-    const {handleBlur, values, errors, touched, handleChange, handleSubmit} = useFormik<recoverPasswordCodeFormProps>({
-      initialValues: {
-        recoverCode: ''
+  const {isLoading, mutate} = useMutation(
+    async (code: string) => {
+      console.log('aqui', code)
+      return setCodeToRecoverPassword({code})
+    },
+    {
+      onError: (error: unknown) => {
+        const {response} = error as AxiosError<{message: string}>
+        SWAlert.fire({
+          icon: 'error',
+          title: response?.data.message,
+        })
       },
-      validationSchema: Yup.object<recoverPasswordCodeFormProps>({
-        recoverCode: Yup.string().required('Preencha o campo')
-      }),
-      onSubmit: values => {
+      onSuccess: () => onNext('CODE'),
+    }
+  )
 
+  const {handleBlur, values, errors, handleChange, handleSubmit} =
+    useFormik<CodeForm>({
+      initialValues: {
+        code: '',
+      },
+      validationSchema: Yup.object<CodeForm>({
+        code: Yup.string().required('Preencha o campo'),
+      }),
+      onSubmit: ({code}) => {
+        if (totalTimeInSeconds === 0) {
+          console.log('inside')
+          return setTotalTimeInSeconds(60)
+        }
+
+        mutate(code)
       },
     })
 
-    return (
+  const minute = Math.floor(totalTimeInSeconds / 60)
+  const seconds = totalTimeInSeconds % 60
 
+  const router = useRouter()
 
-      <Container>
-        <Text>Digite o código que lhe enviamos por email</Text>
-        <form onSubmit={handleSubmit}>
+  function handleBack() {
+    router.push('/entrar')
+  }
 
-          <Input 
-            label="Código de mudança de senha" 
-            name='recoverCode'
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.recoverCode}
-          />
+  useEffect(() => {
+    if (totalTimeInSeconds <= 0) {
+      return
+    }
+    const timeOut = setTimeout(() => {
+      setTotalTimeInSeconds(prevState => prevState - 1)
+    }, 1000)
 
-          {touched.recoverCode && errors.recoverCode ? (
-            <div className='errorRequiredCode'>{errors.recoverCode}</div>
-          ) : null}
-                
-          {
-            totalTimeInSeconds === 0 ?  <ContentButton> <Button bghover='#F5F5F5' textcolor='black' onClick={handleResetTime}> reenviar código </Button> </ContentButton>  :
-              (
-                <div className="containerSeconds">
-                  <span>{minute.toString().padStart(2, "0")}</span>
-                    <span>:</span>
-                    <span>{seconds.toString().padStart(2, "0")}</span>
-                </div>
-              )
-          }
-          <div className='containerButton'>
-                
-            <Button
-              width='9.6rem'
-              height='3rem'
-              textcolor="#756B6B"
-              bordercolor="#756B6B"
-              variant='outlined'
-              onClick={handleBack}
-            >
-              cancelar
-                
+    return () => {
+      clearTimeout(timeOut)
+    }
+  }, [totalTimeInSeconds])
+
+  return (
+    <Container>
+      <Text>Digite o código que lhe enviamos por email</Text>
+      <form onSubmit={handleSubmit}>
+        <Input
+          label="Código de mudança de senha"
+          name="code"
+          onChange={handleChange}
+          onBlur={handleBlur}
+          value={values.code}
+          inputError={errors?.code}
+        />
+        {totalTimeInSeconds === 0 ? (
+          <ContentButton>
+            <Button bghover="#F5F5F5" textcolor="black" type="submit">
+              reenviar código
             </Button>
-                
-            <Button
-              bghover='#303F9F'
-              bgcolor='#756B6B'
-              textcolor='#fff'
-              width='9.6rem'
-              height='3rem'
-              variant='contained'
-              type='submit'
-            >
-                
-              Enviar
-                
-            </Button>
-              
+          </ContentButton>
+        ) : (
+          <div className="containerSeconds">
+            <span>{minute.toString().padStart(2, '0')}</span>
+            <span>:</span>
+            <span>{seconds.toString().padStart(2, '0')}</span>
+          </div>
+        )}
+        <div className="containerButton">
+          <Button
+            width="9.6rem"
+            height="3rem"
+            textcolor="#756B6B"
+            bordercolor="#756B6B"
+            variant="outlined"
+            disabled={isLoading}
+            onClick={handleBack}>
+            Cancelar
+          </Button>
+          <Button
+            bghover="#303F9F"
+            bgcolor="#756B6B"
+            textcolor="#fff"
+            width="9.6rem"
+            height="3rem"
+            variant="contained"
+            disabled={isLoading}
+            type="submit">
+            {isLoading ? 'Carregando...' : 'Enviar'}
+          </Button>
         </div>
-        </form>
-
-      </Container>
-    )
+      </form>
+    </Container>
+  )
 }

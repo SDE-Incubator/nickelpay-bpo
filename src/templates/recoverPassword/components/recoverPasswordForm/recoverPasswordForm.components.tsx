@@ -2,8 +2,9 @@ import {useRouter} from 'next/router'
 import {useFormik} from 'formik'
 import * as Yup from 'yup'
 import {Input} from '@/src/components/input'
-import {Text, Container} from './recoverPassword.styles'
 import {Button} from '@/src/components/button'
+import {Text} from '@/src/components/text'
+import { Container} from './recoverPassword.styles'
 import {RecoverPasswordFormProps, EmailForm} from './recoverPasswordForm'
 import {AxiosError} from 'axios'
 import {SWAlert} from '@/src/libs/toast'
@@ -51,9 +52,16 @@ export function RecoverPasswordForm({onNext}: RecoverPasswordFormProps) {
 
   return (
     <Container>
-      <Text variant="subtitle1">
-        Digite seu email de cadastro e lhe enviaremos as informações por email
-      </Text>
+      <Text title='Redefinir senha' 
+        variant='h6' 
+        marginbottom="1.2rem"
+      
+      />
+      <Text title='Digite seu email de cadastro e lhe enviaremos as informações por email' 
+        variant='body1'
+        marginbottom="4.5rem"
+      />
+
       <form onSubmit={handleSubmit}>
         <Input
           label="Email"

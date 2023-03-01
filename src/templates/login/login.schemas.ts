@@ -1,9 +1,11 @@
-import * as Yup from 'yup';
-import { TloginForm } from './login';
-
-
+import * as Yup from 'yup'
+import { TloginForm } from './login'
 
 export const loginFormValidation = Yup.object<TloginForm>({
-    email: Yup.string().email("Email inválido").required("Email não pode ser vazio"),
-    password: Yup.string().required("Senha não pode ser vazia").min(6, "Minimo 6 caracteres")
+  username: Yup.string()
+    .email('Email inválido')
+    .required('Email não pode ser vazio'),
+  password: Yup.string()
+    .required('Senha não pode ser vazia')
+    .min(6, 'Minimo 6 caracteres'),
 })

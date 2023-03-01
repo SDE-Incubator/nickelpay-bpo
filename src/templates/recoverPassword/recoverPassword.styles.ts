@@ -1,4 +1,4 @@
-import { Typography, Box } from "@mui/material";
+import { Box } from "@mui/material";
 import styled from "styled-components";
 
 export const Container = styled.main`
@@ -23,7 +23,7 @@ export const Content = styled(Box)`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 30px;
+  /* gap: 30px; */
 
   transition: all .7s;
 
@@ -44,17 +44,6 @@ export const Content = styled(Box)`
       gap: 30px;
 
     }
-
   }
 
-  .containerForm {
-    width: 100%;
-  }
-
-`;
-
-
-export const Text = styled(Typography)`
-  position: relative;
-  bottom: -20px;
 `;

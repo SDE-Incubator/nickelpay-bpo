@@ -3,8 +3,9 @@ import * as Yup from 'yup'
 import {useRouter} from 'next/router'
 import {Button} from '@/src/components/button'
 import {Input} from '@/src/components/input'
+import {Text} from '@/src/components/text'
 import {useEffect, useState} from 'react'
-import {Container, Text, ContentButton} from './recoverPassword.styles'
+import {Container, ContentButton} from './recoverPassword.styles'
 import {RecoverPasswordCodeFormProps, CodeForm} from './recoverPassword'
 import {useMutation} from '@tanstack/react-query'
 import {setCodeToRecoverPassword} from '@/src/services/authentication/recoverPassword/recoverPassword.service'
@@ -75,7 +76,17 @@ export function RecoverPasswordCodeForm({
 
   return (
     <Container>
-      <Text>Digite o código que lhe enviamos por email</Text>
+
+      <Text title='Redefinir senha' 
+        variant='h6' 
+        marginbottom="1.2rem"
+      
+      />
+      <Text title='Digite o código que foi enviado para seu email' 
+        variant='body1'
+        marginbottom="4.5rem"
+      />
+      
       <form onSubmit={handleSubmit}>
         <Input
           label="Código de mudança de senha"
@@ -118,7 +129,7 @@ export function RecoverPasswordCodeForm({
             variant="contained"
             disabled={isLoading}
             type="submit">
-            {isLoading ? 'Carregando...' : 'Enviar'}
+            {isLoading ? 'Carregando...' : 'Confirmar'}
           </Button>
         </div>
       </form>

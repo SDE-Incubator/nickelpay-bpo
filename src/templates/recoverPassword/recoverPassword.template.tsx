@@ -2,11 +2,12 @@ import {useCallback, useMemo, useState} from 'react'
 import {SideLogo} from '../../components/sideLogo'
 import {RecoverPasswordForm} from './components/recoverPasswordForm'
 import {RecoverPasswordCodeForm} from './components/recoverPasswordCodeForm'
-import {Container, Text, Content} from './recoverPassword.styles'
+import {Container, Content} from './recoverPassword.styles'
 import {
   RecoverPasswordScreens,
   RecoverPasswordScreensRender,
 } from './recoverPassword'
+import { NewPassword } from './components/newPassword'
 
 export function RecoverPasswordTemplate() {
   const [screen, setScreen] = useState<RecoverPasswordScreens>('EMAIL')
@@ -19,7 +20,7 @@ export function RecoverPasswordTemplate() {
     const screens: RecoverPasswordScreensRender = {
       EMAIL: <RecoverPasswordForm onNext={handleNextScreen} />,
       CODE: <RecoverPasswordCodeForm onNext={handleNextScreen} />,
-      NEW_PASSWORD: <Text>Missing</Text>,
+      NEW_PASSWORD: <NewPassword />,
     }
 
     return screens[screen]
@@ -30,9 +31,9 @@ export function RecoverPasswordTemplate() {
       <SideLogo />
 
       <Content>
-        <Text variant="h6">Redefinir senha</Text>
         {currentScreen}
       </Content>
+      
     </Container>
   )
 }

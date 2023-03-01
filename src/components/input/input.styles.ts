@@ -5,7 +5,6 @@ export const InputStyles = styled(TextField)({
     '&': {
       width: '100%',
       marginBottom: '1.5rem',
-
     },
   
     '& label.Mui-focused': {
@@ -20,6 +19,7 @@ export const InputStyles = styled(TextField)({
         borderColor: '#21285E',
       }
     }
+
     
   });
   

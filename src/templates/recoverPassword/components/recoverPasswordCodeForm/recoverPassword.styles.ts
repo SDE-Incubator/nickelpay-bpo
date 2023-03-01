@@ -1,14 +1,11 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import styled from "styled-components";
-
-export const Text = styled(Typography)`
-  text-align: center;
-  margin-bottom: 100px;
-`
 
 export const Container = styled.div`
   width: 100%;
   max-width: 540px;
+
+  text-align: center;
 
   .errorRequiredCode{
     color: ${({theme}) => theme.icon[100]};

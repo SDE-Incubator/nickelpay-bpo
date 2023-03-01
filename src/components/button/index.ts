@@ -1,1 +1,1 @@
-export {ButtonStyles} from './button.components'
+export {Button} from './button.components'

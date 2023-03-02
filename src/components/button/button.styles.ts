@@ -4,11 +4,13 @@ import { ButtonStylesProps } from "./button";
 
 
 
-export const Container = styled(Button)<Pick<ButtonStylesProps, "width" | "height" | "bgcolor" | "textcolor" | "bghover" | "bordercolor">>`
+export const Container = styled(Button)<Pick<ButtonStylesProps, "width" | "height" | "bgcolor" | "textcolor" | "bghover" | "bordercolor" | "margintop" >>`
   background: ${({bgcolor}) => bgcolor};
   color: ${({textcolor}) => textcolor};
   width: ${({width}) => width || "100%"};
   height: ${({height}) => height};
+
+  margin-top: ${({margintop}) => margintop};
 
   border: 1px solid ${({bordercolor}) => bordercolor || 'transparent'};
 

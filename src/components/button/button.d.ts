@@ -7,6 +7,8 @@ export type ButtonStylesProps = ButtonProps & {
     bgcolor?: string
     bghover?: string
     bordercolor?: string
+    loading?: boolean
+    margintop?: string
     
 
 }

@@ -5,9 +5,10 @@ import { Typography } from "@mui/material";
 
 
 
-export const Container = styled(Typography)<Pick<TextStylesProps, "margintop" | "marginbottom" | "textFontFamily" >>`
+export const Container = styled(Typography)<Pick<TextStylesProps, "margintop" | "marginbottom" | "fontcolor" >>`
   margin-top: ${({margintop}) => margintop};
   margin-bottom: ${({marginbottom}) => marginbottom};
+  color: ${({fontcolor}) => fontcolor || "#222"};
 
 
 `;

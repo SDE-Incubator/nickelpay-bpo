@@ -1,13 +1,15 @@
 import {apiClient} from '../../apiClient'
 import {
   GetCodeToRecoverPasswordRequest,
+  GetCodeToRecoverPasswordResponse,
   SetCodeToRecoverPasswordRequest,
+  SetNewPasswordRequest,
 } from './recoverPassword'
 
 async function getCodeToRecoverPassword({
   username,
 }: GetCodeToRecoverPasswordRequest) {
-  const {data} = await apiClient({
+  const {data} = await apiClient<GetCodeToRecoverPasswordResponse>({
     method: 'POST',
     base: 'access',
     url: '/forgot',
@@ -32,4 +34,25 @@ async function setCodeToRecoverPassword({
   return data
 }
 
-export {getCodeToRecoverPassword, setCodeToRecoverPassword}
+async function setNewPassword({
+  code,
+  newPassword1,
+  newPassword2,
+  token,
+}: SetNewPasswordRequest) {
+  const {data} = await apiClient({
+    method: 'POST',
+    base: 'access',
+    url: '/recover',
+    data: {
+      code,
+      new_password1: newPassword1,
+      new_password2: newPassword2,
+      token,
+    },
+  })
+
+  return data
+}
+
+export {getCodeToRecoverPassword, setCodeToRecoverPassword, setNewPassword}

@@ -1,25 +1,30 @@
-import {useFormik} from 'formik'
-import * as Yup from 'yup'
 import {useRouter} from 'next/router'
+import {useFormik} from 'formik'
+import {useEffect, useState} from 'react'
+import {AxiosError} from 'axios'
+import {useMutation} from '@tanstack/react-query'
+import * as Yup from 'yup'
+
 import {Button} from '@/src/components/button'
 import {Input} from '@/src/components/input'
 import {Text} from '@/src/components/text'
-import {useEffect, useState} from 'react'
 import {Container, ContentButton} from './recoverPassword.styles'
-import {RecoverPasswordCodeFormProps, CodeForm} from './recoverPassword'
-import {useMutation} from '@tanstack/react-query'
-import {setCodeToRecoverPassword} from '@/src/services/authentication/recoverPassword/recoverPassword.service'
+import {RecoverPasswordCodeFormProps, TCodeForm} from './recoverPassword'
 import {SWAlert} from '@/src/libs/toast'
-import {AxiosError} from 'axios'
+import {
+  getCodeToRecoverPassword,
+  setCodeToRecoverPassword,
+} from '@/src/services/authentication/recoverPassword'
 
 export function RecoverPasswordCodeForm({
   onNext,
+  onStorePasswordData,
+  passwordData,
 }: RecoverPasswordCodeFormProps) {
   const [totalTimeInSeconds, setTotalTimeInSeconds] = useState(60)
 
   const {isLoading, mutate} = useMutation(
     async (code: string) => {
-      console.log('aqui', code)
       return setCodeToRecoverPassword({code})
     },
     {
@@ -30,21 +35,45 @@ export function RecoverPasswordCodeForm({
           title: response?.data.message,
         })
       },
-      onSuccess: () => onNext('CODE'),
+      onSuccess: (_, code) => {
+        onNext('NEW_PASSWORD')
+        onStorePasswordData({code})
+      },
+    }
+  )
+
+  const {isLoading: isLoadingResend, mutate: mutateResend} = useMutation(
+    async () => {
+      if (!passwordData.email) {
+        throw new Error('Email inválido!')
+      }
+      const response = await getCodeToRecoverPassword({
+        username: passwordData.email,
+      })
+      onStorePasswordData({token: response.token})
+      return response
+    },
+    {
+      onError: (error: unknown) => {
+        const {response} = error as AxiosError<{message: string}>
+        SWAlert.fire({
+          icon: 'error',
+          title: response?.data.message,
+        })
+      },
     }
   )
 
   const {handleBlur, values, errors, handleChange, handleSubmit} =
-    useFormik<CodeForm>({
+    useFormik<TCodeForm>({
       initialValues: {
         code: '',
       },
-      validationSchema: Yup.object<CodeForm>({
+      validationSchema: Yup.object<TCodeForm>({
         code: Yup.string().required('Preencha o campo'),
       }),
       onSubmit: ({code}) => {
         if (totalTimeInSeconds === 0) {
-          console.log('inside')
           return setTotalTimeInSeconds(60)
         }
 
@@ -74,19 +103,20 @@ export function RecoverPasswordCodeForm({
     }
   }, [totalTimeInSeconds])
 
+  const handleResendCode = () => {
+    mutateResend()
+    setTotalTimeInSeconds(60)
+  }
+
   return (
     <Container>
-
-      <Text title='Redefinir senha' 
-        variant='h6' 
-        marginbottom="1.2rem"
-      
-      />
-      <Text title='Digite o código que foi enviado para seu email' 
-        variant='body1'
+      <Text title="Redefinir senha" variant="h6" marginbottom="1.2rem" />
+      <Text
+        title="Digite o código que foi enviado para seu email"
+        variant="body1"
         marginbottom="4.5rem"
       />
-      
+
       <form onSubmit={handleSubmit}>
         <Input
           label="Código de mudança de senha"
@@ -98,8 +128,13 @@ export function RecoverPasswordCodeForm({
         />
         {totalTimeInSeconds === 0 ? (
           <ContentButton>
-            <Button bghover="#F5F5F5" textcolor="black" type="submit">
-              reenviar código
+            <Button
+              disabled={isLoadingResend}
+              bghover="#F5F5F5"
+              textcolor="black"
+              onClick={() => handleResendCode()}
+              type="button">
+              {isLoadingResend ? 'Carregando...' : 'Reenviar código'}
             </Button>
           </ContentButton>
         ) : (

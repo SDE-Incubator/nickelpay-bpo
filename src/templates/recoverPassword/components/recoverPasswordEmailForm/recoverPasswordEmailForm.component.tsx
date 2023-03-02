@@ -4,19 +4,24 @@ import * as Yup from 'yup'
 import {Input} from '@/src/components/input'
 import {Button} from '@/src/components/button'
 import {Text} from '@/src/components/text'
-import { Container} from './recoverPassword.styles'
-import {RecoverPasswordFormProps, EmailForm} from './recoverPasswordForm'
+import {Container} from './recoverPasswordEmailForm.styles'
+import {RecoverPasswordFormProps, TEmailForm} from './recoverPasswordEmailForm'
 import {AxiosError} from 'axios'
 import {SWAlert} from '@/src/libs/toast'
 import {useMutation} from '@tanstack/react-query'
 import {getCodeToRecoverPassword} from '@/src/services/authentication/recoverPassword'
 
-export function RecoverPasswordForm({onNext}: RecoverPasswordFormProps) {
+export function RecoverPasswordEmailForm({
+  onNext,
+  onStorePasswordData,
+}: RecoverPasswordFormProps) {
   const router = useRouter()
 
   const {isLoading, mutate} = useMutation(
-    async ({username}: EmailForm) => {
-      return getCodeToRecoverPassword({username})
+    async ({username}: TEmailForm) => {
+      const response = await getCodeToRecoverPassword({username})
+      onStorePasswordData({token: response.token, email: values.username})
+      return response
     },
     {
       mutationKey: ['username'],
@@ -32,11 +37,11 @@ export function RecoverPasswordForm({onNext}: RecoverPasswordFormProps) {
   )
 
   const {handleBlur, values, errors, handleChange, handleSubmit} =
-    useFormik<EmailForm>({
+    useFormik<TEmailForm>({
       initialValues: {
         username: '',
       },
-      validationSchema: Yup.object<EmailForm>({
+      validationSchema: Yup.object<TEmailForm>({
         username: Yup.string()
           .email('Email inválido')
           .required('Email não pode ser vazio'),
@@ -52,13 +57,10 @@ export function RecoverPasswordForm({onNext}: RecoverPasswordFormProps) {
 
   return (
     <Container>
-      <Text title='Redefinir senha' 
-        variant='h6' 
-        marginbottom="1.2rem"
-      
-      />
-      <Text title='Digite seu email de cadastro e lhe enviaremos as informações por email' 
-        variant='body1'
+      <Text title="Redefinir senha" variant="h6" marginbottom="1.2rem" />
+      <Text
+        title="Digite seu email de cadastro e lhe enviaremos as informações por email"
+        variant="body1"
         marginbottom="4.5rem"
       />
 
@@ -79,6 +81,7 @@ export function RecoverPasswordForm({onNext}: RecoverPasswordFormProps) {
             textcolor="#756B6B"
             bordercolor="#756B6B"
             variant="outlined"
+            disabled={isLoading}
             onClick={handleCancel}>
             Cancelar
           </Button>

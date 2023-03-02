@@ -1,2 +1,10 @@
-export {getCodeToRecoverPassword} from './recoverPassword.service'
-export type {GetCodeToRecoverPasswordRequest} from './recoverPassword'
+export {
+  getCodeToRecoverPassword,
+  setCodeToRecoverPassword,
+  setNewPassword,
+} from './recoverPassword.service'
+export type {
+  GetCodeToRecoverPasswordRequest,
+  SetCodeToRecoverPasswordRequest,
+  SetNewPasswordRequest,
+} from './recoverPassword'

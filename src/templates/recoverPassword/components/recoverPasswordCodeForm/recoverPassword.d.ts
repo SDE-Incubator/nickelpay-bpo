@@ -1,9 +1,11 @@
-import {RecoverPasswordScreens} from '../../recoverPassword'
+import {RecoverPasswordScreens, TNewPasswordData} from '../../recoverPassword'
 
 export type RecoverPasswordCodeFormProps = {
   onNext: (screen: RecoverPasswordScreens) => void
+  passwordData: TNewPasswordData
+  onStorePasswordData: (newData: TNewPasswordData) => void
 }
 
-export type CodeForm = {
+export type TCodeForm = {
   code: string
 }

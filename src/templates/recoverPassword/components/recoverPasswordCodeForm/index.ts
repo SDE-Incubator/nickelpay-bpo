@@ -1,2 +1,2 @@
-export {RecoverPasswordCodeForm} from './recoverPasswordCodeForm'
-export type {recoverPasswordCodeFormProps} from './recoverPassword'
+export {RecoverPasswordCodeForm} from './recoverPasswordCodeForm.component'
+export type {TCodeForm, RecoverPasswordCodeFormProps} from './recoverPassword'

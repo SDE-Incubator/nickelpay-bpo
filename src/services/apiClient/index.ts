@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { BaseTypes, RequestConfig } from './apiClient'
+import {BaseTypes, RequestConfig} from './apiClient'
 
 const ACCESS_API_URL = process.env.NEXT_PUBLIC_ACCESS_API_URL as 'access'
 
@@ -13,19 +13,18 @@ const baseUrls: Record<BaseTypes, string> = {
   transactions: '',
 }
 
-export const apiClient = (config: RequestConfig) => {
+export const apiClient = <T>(config: RequestConfig) => {
   if (config.method === 'GET') {
     config.data = ''
   }
-  console.log('base', config.base)
-  console.log('urls', baseUrls)
+
   if (config.base) {
     config.baseURL = baseUrls[config.base]
   }
 
   delete config.base
 
-  const headers = { ...config.headers, 'Cache-Control': 'no-cache' }
+  const headers = {...config.headers, 'Cache-Control': 'no-cache'}
 
-  return api.request({ ...config, ...headers })
+  return api.request<T>({...config, ...headers})
 }

@@ -1,37 +1,47 @@
-import { Button } from '@/src/components/button'
-import { Input } from '../../components/input'
-import { CircularProgress } from '@mui/material'
-import { useState } from 'react'
-import { SideLogo } from '../../components/sideLogo'
-import { Container, Form, StyleLink, ImageContainer } from './login.styles'
-import { useFormik } from 'formik'
-import { loginFormValidation } from './login.schemas'
-import { TloginForm } from './login'
-import { login } from '@/src/services/authentication/login/login.service'
-import { AxiosError } from 'axios'
-import { SWAlert } from '@/src/libs/toast'
+import {Button} from '@/src/components/button'
+import {Input} from '../../components/input'
+import {CircularProgress} from '@mui/material'
+import {SideLogo} from '../../components/sideLogo'
+import {Container, Form, StyleLink, ImageContainer} from './login.styles'
+import {useFormik} from 'formik'
+import {loginFormValidation} from './login.schemas'
+import {TloginForm} from './login'
+import {login} from '@/src/services/authentication/login/login.service'
+import {AxiosError} from 'axios'
+import {SWAlert} from '@/src/libs/toast'
+import {useMutation} from '@tanstack/react-query'
 
 export function LoginTemplate() {
-  const [isLoading] = useState(false)
+  const {isLoading, mutate} = useMutation(
+    async ({username, password}: TloginForm) => {
+      return login({username, password})
+    },
+    {
+      mutationKey: ['login'],
+      onError: (error: unknown) => {
+        const {response} = error as AxiosError<{message: string}>
+        SWAlert.fire({
+          icon: 'error',
+          title: response?.data.message,
+        })
+      },
+      onSuccess: () => {
+        SWAlert.fire({
+          icon: 'success',
+        })
+      },
+    }
+  )
 
-  const { handleSubmit, touched, errors, handleChange, handleBlur, values } =
+  const {handleSubmit, touched, errors, handleChange, handleBlur, values} =
     useFormik<TloginForm>({
       initialValues: {
         username: '',
         password: '',
       },
       validationSchema: loginFormValidation,
-      onSubmit: async ({ username, password }) => {
-        try {
-          const response = await login({ username, password })
-          console.log('response', response)
-        } catch (error: unknown) {
-          const { response } = error as AxiosError<{ message: string }>
-          SWAlert.fire({
-            icon: 'error',
-            title: response?.data.message,
-          })
-        }
+      onSubmit: async values => {
+        mutate(values)
       },
     })
 
@@ -74,8 +84,7 @@ export function LoginTemplate() {
             textcolor="#fff"
             width="8.8rem"
             type="submit"
-            variant="contained"
-          >
+            variant="contained">
             Entrar
           </Button>
         )}

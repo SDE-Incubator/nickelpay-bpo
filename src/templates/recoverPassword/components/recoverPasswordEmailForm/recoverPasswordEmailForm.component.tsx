@@ -1,10 +1,13 @@
 import {useRouter} from 'next/router'
 import {useFormik} from 'formik'
 import * as Yup from 'yup'
+
 import {Input} from '@/src/components/input'
 import {Button} from '@/src/components/button'
 import {Text} from '@/src/components/text'
-import {Container} from './recoverPasswordEmailForm.styles'
+
+import {Container, Form} from './recoverPasswordEmailForm.styles'
+
 import {RecoverPasswordFormProps, TEmailForm} from './recoverPasswordEmailForm'
 import {AxiosError} from 'axios'
 import {SWAlert} from '@/src/libs/toast'
@@ -64,7 +67,7 @@ export function RecoverPasswordEmailForm({
         marginbottom="4.5rem"
       />
 
-      <form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <Input
           label="Email"
           name="username"
@@ -98,7 +101,7 @@ export function RecoverPasswordEmailForm({
             {isLoading ? 'Carregando...' : 'Enviar'}
           </Button>
         </div>
-      </form>
+      </Form>
     </Container>
   )
 }

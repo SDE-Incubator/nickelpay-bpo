@@ -7,15 +7,6 @@ export const Container = styled.div`
 
   text-align: center;
 
-  .errorRequiredCode{
-    color: ${({theme}) => theme.icon[100]};
-    position: relative;
-    bottom: 12px;
-    font-family: "roboto";
-    align-self: flex-start;
-    font-size: 14px;
-  }
-
   .containerSeconds {
     font-family: 'roboto';
     text-align: center;
@@ -28,3 +19,12 @@ export const ContentButton = styled(Box)`
   max-width: 164px;
 
 `
+
+export const Form = styled.form`
+  width: 100%;
+  max-width: 540px;
+  text-align: center; // Serve para deixar o error dos inputs alinhados a esquerda
+
+  display: flex;
+  flex-direction: column;
+`;

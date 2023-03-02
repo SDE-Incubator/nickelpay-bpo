@@ -2,7 +2,8 @@
 export type TextStylesProps = {
     margintop?: string;
     marginbottom?: string;
-    textFontFamily?: string;
+    textfontfamily?: string;
+    fontcolor?: string;
     title: string;
     variant: string
 }

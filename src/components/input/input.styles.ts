@@ -4,7 +4,7 @@ import { TextField } from "@mui/material";
 export const InputStyles = styled(TextField)({
     '&': {
       width: '100%',
-      marginBottom: '1.5rem',
+      marginBottom: '1.5rem'
     },
   
     '& label.Mui-focused': {
@@ -21,5 +21,18 @@ export const InputStyles = styled(TextField)({
     }
 
     
-  });
+});
   
+
+export const AlertError = styled.div`
+  color: ${({ theme }) => theme.icon[100]};
+  position: relative;
+  bottom: 12px;
+  font-family: 'roboto';
+  align-self: flex-start;
+  font-size: 14px;
+  align-self: flex-start;
+
+  /* usando para todos os erros */
+
+`;

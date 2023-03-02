@@ -8,7 +8,7 @@ import * as Yup from 'yup'
 import {Button} from '@/src/components/button'
 import {Input} from '@/src/components/input'
 import {Text} from '@/src/components/text'
-import {Container, ContentButton} from './recoverPassword.styles'
+import {Container, ContentButton, Form} from './recoverPassword.styles'
 import {RecoverPasswordCodeFormProps, TCodeForm} from './recoverPassword'
 import {SWAlert} from '@/src/libs/toast'
 import {
@@ -117,7 +117,7 @@ export function RecoverPasswordCodeForm({
         marginbottom="4.5rem"
       />
 
-      <form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <Input
           label="Código de mudança de senha"
           name="code"
@@ -163,11 +163,14 @@ export function RecoverPasswordCodeForm({
             height="3rem"
             variant="contained"
             disabled={isLoading}
-            type="submit">
-            {isLoading ? 'Carregando...' : 'Confirmar'}
+            type="submit"
+            >
+            
+            {isLoading ? 'carregando' : 'Confirmar'}
+
           </Button>
         </div>
-      </form>
+      </Form>
     </Container>
   )
 }

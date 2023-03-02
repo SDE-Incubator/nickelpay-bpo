@@ -11,7 +11,7 @@ import {
 import {NewPasswordForm} from './components/newPasswordForm'
 
 export function RecoverPasswordTemplate() {
-  const [screen, setScreen] = useState<RecoverPasswordScreens>('EMAIL')
+  const [screen, setScreen] = useState<RecoverPasswordScreens>('CODE')
   const [newPasswordData, setNewPasswordData] = useState<TNewPasswordData>({
     code: '',
     token: '',

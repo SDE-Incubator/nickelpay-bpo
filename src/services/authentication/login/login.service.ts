@@ -1,7 +1,7 @@
 import {apiClient} from '../../apiClient'
-import {LoginRequestProps} from './login'
+import {LoginConfirmationCodeRequest, LoginRequest} from './login'
 
-async function login({username, password}: LoginRequestProps) {
+async function login({username, password}: LoginRequest) {
   const {data} = await apiClient({
     method: 'POST',
     base: 'access',
@@ -16,4 +16,15 @@ async function login({username, password}: LoginRequestProps) {
   return data
 }
 
-export {login}
+async function loginConfirmationCode({code}: LoginConfirmationCodeRequest) {
+  const {data} = await apiClient({
+    method: 'POST',
+    base: 'access',
+    url: '/login/mfa',
+    data: {code},
+  })
+
+  return data
+}
+
+export {login, loginConfirmationCode}

@@ -1,5 +1,5 @@
-
-import styled from "styled-components";
+import {Button} from '@mui/material'
+import styled from 'styled-components'
 
 export const Form = styled.form`
   width: 100%;
@@ -12,7 +12,6 @@ export const Form = styled.form`
   align-items: center;
   justify-content: center;
 
-
   transition: all 0.7s;
 
   text-align: center;
@@ -20,7 +19,9 @@ export const Form = styled.form`
   @media (max-width: 580px) {
     margin-top: 30px;
   }
-
-
 `
 
+export const GoBackButton = styled(Button)`
+  all: unset;
+  cursor: pointer;
+`

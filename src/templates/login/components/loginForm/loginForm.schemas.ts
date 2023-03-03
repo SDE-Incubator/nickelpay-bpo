@@ -1,5 +1,5 @@
 import * as Yup from 'yup'
-import { TloginForm } from './login'
+import {TloginForm} from './loginForm'
 
 export const loginFormValidation = Yup.object<TloginForm>({
   username: Yup.string()

@@ -1,6 +1,16 @@
 import * as Yup from 'yup'
 
-export const newPasswordSchema = Yup.object({
+export const usernameValidator = Yup.object().shape({
+  username: Yup.string()
+    .email('Email inválido')
+    .required('Email não pode ser vazio'),
+})
+
+export const codeValidator = Yup.object().shape({
+  code: Yup.string().required('Preencha o campo'),
+})
+
+export const comparePasswordsValidator = Yup.object().shape({
   newPassword1: Yup.string()
     .matches(
       /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,

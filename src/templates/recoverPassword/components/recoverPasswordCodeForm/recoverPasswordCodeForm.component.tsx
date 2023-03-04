@@ -1,9 +1,9 @@
 import {useRouter} from 'next/router'
-import {useFormik} from 'formik'
+import {useFormikContext} from 'formik'
 import {useEffect, useState} from 'react'
+import {setCookie} from 'cookies-next'
 import {AxiosError} from 'axios'
 import {useMutation} from '@tanstack/react-query'
-import * as Yup from 'yup'
 
 import {Button} from '@/src/components/button'
 import {Input} from '@/src/components/input'
@@ -15,42 +15,30 @@ import {
   getCodeToRecoverPassword,
   setCodeToRecoverPassword,
 } from '@/src/services/authentication/recoverPassword'
+import {TNewPasswordForm} from '../../recoverPassword'
 
-export function RecoverPasswordCodeForm({
-  onNext,
-  onStorePasswordData,
-  passwordData,
-}: RecoverPasswordCodeFormProps) {
+export function RecoverPasswordCodeForm() {
   const [totalTimeInSeconds, setTotalTimeInSeconds] = useState(60)
 
-  const {isLoading, mutate} = useMutation(
-    async (code: string) => {
-      return setCodeToRecoverPassword({code})
-    },
-    {
-      onError: (error: unknown) => {
-        const {response} = error as AxiosError<{message: string}>
-        SWAlert.fire({
-          icon: 'error',
-          title: response?.data.message,
-        })
-      },
-      onSuccess: (_, code) => {
-        onNext('NEW_PASSWORD')
-        onStorePasswordData({code})
-      },
-    }
-  )
+  const {
+    handleSubmit,
+    handleBlur,
+    handleChange,
+    values,
+    errors,
+    validationSchema,
+    isSubmitting,
+  } = useFormikContext<TNewPasswordForm>()
 
   const {isLoading: isLoadingResend, mutate: mutateResend} = useMutation(
     async () => {
-      if (!passwordData.email) {
+      if (!values.username) {
         throw new Error('Email inválido!')
       }
       const response = await getCodeToRecoverPassword({
-        username: passwordData.email,
+        username: values.username,
       })
-      onStorePasswordData({token: response.token})
+      setCookie('@nickelpay/token', response.token)
       return response
     },
     {
@@ -63,23 +51,6 @@ export function RecoverPasswordCodeForm({
       },
     }
   )
-
-  const {handleBlur, values, errors, handleChange, handleSubmit} =
-    useFormik<TCodeForm>({
-      initialValues: {
-        code: '',
-      },
-      validationSchema: Yup.object<TCodeForm>({
-        code: Yup.string().required('Preencha o campo'),
-      }),
-      onSubmit: ({code}) => {
-        if (totalTimeInSeconds === 0) {
-          return setTotalTimeInSeconds(60)
-        }
-
-        mutate(code)
-      },
-    })
 
   const minute = Math.floor(totalTimeInSeconds / 60)
   const seconds = totalTimeInSeconds % 60
@@ -133,7 +104,8 @@ export function RecoverPasswordCodeForm({
               bghover="#F5F5F5"
               textcolor="black"
               onClick={() => handleResendCode()}
-              type="button">
+              type="button"
+            >
               {isLoadingResend ? 'Carregando...' : 'Reenviar código'}
             </Button>
           </ContentButton>
@@ -151,8 +123,9 @@ export function RecoverPasswordCodeForm({
             textcolor="#756B6B"
             bordercolor="#756B6B"
             variant="outlined"
-            disabled={isLoading}
-            onClick={handleBack}>
+            disabled={isSubmitting}
+            onClick={handleBack}
+          >
             Cancelar
           </Button>
           <Button
@@ -162,12 +135,10 @@ export function RecoverPasswordCodeForm({
             width="9.6rem"
             height="3rem"
             variant="contained"
-            disabled={isLoading}
+            disabled={isSubmitting}
             type="submit"
-            >
-            
-            {isLoading ? 'carregando' : 'Confirmar'}
-
+          >
+            {isSubmitting ? 'Carregando' : 'Confirmar'}
           </Button>
         </div>
       </Form>

@@ -22,11 +22,11 @@ export function RecoverPasswordEmailForm() {
 
   return (
     <Container>
-      <Text title="Redefinir senha" variant="h6" marginbottom="1.2rem" />
+      <Text title="Redefinir senha" textsize='1.625rem' fontweight='500' marginbottom="1.2rem" />
       <Text
         title="Digite seu email de cadastro e lhe enviaremos as informações por email"
-        variant="body1"
         marginbottom="4.5rem"
+        textsize='1rem'
       />
 
       <Form onSubmit={handleSubmit}>

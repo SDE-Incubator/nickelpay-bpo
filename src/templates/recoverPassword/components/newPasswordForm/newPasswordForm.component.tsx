@@ -12,13 +12,14 @@ export function NewPasswordForm({onNavigate}: NewPasswordFormProps) {
   console.log('isSubmitting', isSubmitting)
   return (
     <>
-      <Text title="Registrar nova senha" variant="h6" marginbottom="1.2rem" />
+      <Text title="Registrar nova senha" textsize='1.625rem' fontweight='500' marginbottom="1.2rem" />
       <Text
-        title="Digite o código que foi enviado para seu email"
-        variant="body1"
+        title="Você solicitou a alteração da sua senha, basta apenas registrar a nova senha e logar novamente"
         marginbottom="4.5rem"
+        textsize='1rem'
       />
-      <form onSubmit={handleSubmit}>
+
+      <form className='contentInputNewPassword' onSubmit={handleSubmit}>
         <Input
           label="Nova senha"
           name="newPassword1"

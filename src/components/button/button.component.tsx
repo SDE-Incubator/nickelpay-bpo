@@ -1,6 +1,7 @@
 import {ButtonStylesProps} from './button'
 import {Container} from './button.styles'
 import {CircularProgress} from '@mui/material'
+import * as Styles from './button.styles'
 
 export function Button({
   children,
@@ -8,8 +9,8 @@ export function Button({
   ...rest
 }: ButtonStylesProps) {
   return (
-    <Container {...rest} role="button" disabled={loading}>
-      {loading ? <CircularProgress role="progressbar" /> : children}
-    </Container>
+      <Styles.Container {...rest} role="button" disabled={loading}>
+        {loading ? <CircularProgress /> : children}
+      </Styles.Container>
   )
 }

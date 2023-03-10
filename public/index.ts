@@ -2,6 +2,9 @@ export {default as AccountsIcon} from './AccountsIcon.svg'
 export {default as AnalysisIcon} from './AnalysisIcon.svg'
 export {default as ConfigurationIcon} from './ConfigurationIcon.svg'
 
+export {default as RightArrowIcon} from './RightArrowIcon.svg'
+export {default as MoreIcon} from './MoreIcon.svg'
+
 export {default as CustomizationIcon} from './CustomizationIcon.svg'
 export {default as FinancesIcon} from './FinancesIcon.svg'
 export {default as LogoNickel} from './LogoNickel.svg'

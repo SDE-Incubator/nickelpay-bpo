@@ -22,11 +22,13 @@ export function SideBar() {
 
   const handleClickSubMenuItem = (item: SubmenuProps) => {
     router.push(item.path)
+    setMenuWithSubmenu(null)
+
   }
 
   return (
     <>
-      <Styles.Container variant="permanent">
+      {/* <Styles.Container variant="permanent"> */}
         <Styles.Content>
           <List>
             <Styles.ToolbarLogo>
@@ -56,7 +58,7 @@ export function SideBar() {
             <Styles.LogoutButton>SAIR</Styles.LogoutButton>
           </Styles.ContentNotification>
         </Styles.Content>
-      </Styles.Container>
+      {/* </Styles.Container> */}
 
       <Styles.SubMenuDrawer
         transitionDuration={0.5}

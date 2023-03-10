@@ -1,10 +1,10 @@
-import { Button } from "../components/button";
 
 export default function Home() {
 
   return (
     <>
-          <Button> Teste </Button>
+      <h1 style={{marginLeft: '200px'}}> Home</h1>
+
     </>
   );
 }

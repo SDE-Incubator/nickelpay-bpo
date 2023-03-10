@@ -29,7 +29,7 @@ import {
 } from './validators/recoverPassword.validator'
 
 export function RecoverPasswordTemplate() {
-  const [screen, setScreen] = useState<RecoverPasswordScreens>('EMAIL')
+  const [screen, setScreen] = useState<RecoverPasswordScreens>('NEW_PASSWORD')
 
   const router = useRouter()
 

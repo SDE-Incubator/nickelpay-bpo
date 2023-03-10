@@ -11,6 +11,11 @@ export const Container = styled.main`
   @media (max-width: 580px) {
     flex-direction: column;
   }
+
+  .contentInputNewPassword {
+    width: 100%;
+    max-width: 540px;
+  }
 `;
 
 export const Content = styled(Box)`
@@ -23,7 +28,7 @@ export const Content = styled(Box)`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* gap: 30px; */
+
 
   transition: all .7s;
 

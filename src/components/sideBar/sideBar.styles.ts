@@ -24,7 +24,8 @@ export const Content = styled(Box)`
   flex-direction: column;
   flex: 1;
   background: ${({theme}) => theme.general[300]};
-  width: 6.438rem;
+  max-width: 6.438rem;
+  height: 100vh;
 `
 
 export const MenuListItem = styled(ListItem).attrs(() => ({button: true}))`
@@ -82,7 +83,7 @@ export const ProfileAvatar = styled(Avatar)`
 export const NotificationBadge = styled(Badge)`
   .MuiBadge-badge {
     background-color: #48e96b;
-    color: #000; 
+    color: #000;
 
     cursor: pointer;
   }

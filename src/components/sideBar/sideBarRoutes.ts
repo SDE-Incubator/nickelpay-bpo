@@ -169,7 +169,7 @@ export const sideBarRoutes: SideBarRoutesProps[] = [
     Icon: ConfigurationIcon,
     submenu: [
       {
-        path: '/',
+        path: '/perfis-de-acesso',
         name: 'Perfis de acesso',
         Icon: ClipboardListIcon,
         // permissions: ['settings-access/list'],

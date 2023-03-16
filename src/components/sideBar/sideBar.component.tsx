@@ -11,7 +11,7 @@ import * as Styles from './sideBar.styles'
 import {Text} from '../text'
 
 import {useRouter} from 'next/router'
-export function SideBar() {
+export function SideBar({children}: SideBarRoutesProps) {
   const [menuWithSubmenu, setMenuWithSubmenu] =
     useState<SideBarRoutesProps | null>(null)
   const router = useRouter()
@@ -23,12 +23,15 @@ export function SideBar() {
   const handleClickSubMenuItem = (item: SubmenuProps) => {
     router.push(item.path)
     setMenuWithSubmenu(null)
+  }
 
+  function handleProfile() {
+    router.push(RoutesPath.PROFILE)
   }
 
   return (
-    <>
-      {/* <Styles.Container variant="permanent"> */}
+    <Styles.MainContainer>
+      <Styles.ContentDrawer variant='permanent'>
         <Styles.Content>
           <List>
             <Styles.ToolbarLogo>
@@ -45,7 +48,7 @@ export function SideBar() {
                   onClick={() => handleClickListItem(item)}
                 >
                   <Styles.IconMenu component={IconMenu} />
-                  <Text margintop="0.4rem" fontcolor="#fff" title={item.name} />
+                  <span>{item.name}</span>
                 </Styles.MenuListItem>
               )
             })}
@@ -54,11 +57,11 @@ export function SideBar() {
             <Styles.NotificationBadge badgeContent={1}>
               <NotificationIcon />
             </Styles.NotificationBadge>
-            <Styles.ProfileAvatar src="https://source.unsplash.com/800x600/?face" />
+            <Styles.ProfileAvatar onClick={handleProfile} src="https://source.unsplash.com/800x600/?face" />
             <Styles.LogoutButton>SAIR</Styles.LogoutButton>
           </Styles.ContentNotification>
         </Styles.Content>
-      {/* </Styles.Container> */}
+      </Styles.ContentDrawer>
 
       <Styles.SubMenuDrawer
         transitionDuration={0.5}
@@ -69,8 +72,8 @@ export function SideBar() {
           <Text
             fontcolor="black"
             title={menuWithSubmenu?.name || ''}
-            textsize='1.2rem'
-            fontweight='500'
+            textsize="1.2rem"
+            fontweight="500"
           />
         </Styles.SubMenuToolbar>
 
@@ -88,13 +91,16 @@ export function SideBar() {
                     <Styles.SubMenuIcon>
                       <Styles.IconSubMenu component={IconMenu} />
                     </Styles.SubMenuIcon>
-                    <Text margintop="0.4rem" fontcolor="#222" textsize='0.8rem' title={item.name} />
+                    <span>{item.name}</span>
                   </Styles.SubMenuListItem>
                 )
               })}
           </List>
         </Styles.ContentSubMenu>
       </Styles.SubMenuDrawer>
-    </>
+      
+      <Styles.Main maxWidth='xl'>{children}</Styles.Main>
+    </Styles.MainContainer>
+  
   )
 }

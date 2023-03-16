@@ -3,21 +3,28 @@ import {
   Badge,
   Box,
   Button,
+  Container,
   Drawer,
   ListItem,
   ListItemIcon,
-  ListItemText,
   SvgIcon,
   Toolbar,
 } from '@mui/material'
 import styled from 'styled-components'
 
-export const Container = styled(Drawer)`
-  /* z-index: 10; 
-    Excluir isso 
-  */
+export const MainContainer = styled(Box)`
+  height: 80%;
+  display: flex;
 `
 
+export const ContentDrawer = styled(Drawer)`
+  max-width: 6.438rem;
+  z-index: 10;
+
+  @media (max-width: 630px) {
+    max-width: 3.438rem;
+  }
+`
 export const Content = styled(Box)`
   display: flex;
   justify-content: space-between;
@@ -26,6 +33,13 @@ export const Content = styled(Box)`
   background: ${({theme}) => theme.general[300]};
   max-width: 6.438rem;
   height: 100vh;
+
+  transition: all 1s;
+  overflow: auto;
+
+  @media (max-width: 630px) {
+    max-width: 3.438rem;
+  }
 `
 
 export const MenuListItem = styled(ListItem).attrs(() => ({button: true}))`
@@ -34,6 +48,16 @@ export const MenuListItem = styled(ListItem).attrs(() => ({button: true}))`
   align-items: center;
   padding: 0.938rem 0.5rem;
   width: 100%;
+  > span {
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.75rem;
+    margin-top: 0.4rem;
+
+    @media (max-width: 630px) {
+      display: none;
+    }
+  }
 `
 
 export const IconMenu = styled(SvgIcon)`
@@ -54,13 +78,25 @@ export const SubMenuIcon = styled(ListItemIcon)`
 export const SubMenuListItem = styled(ListItem).attrs(() => ({button: true}))`
   align-items: center;
   padding: 1.25rem;
+
+  > span {
+    color: black;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.75rem;
+    margin-top: 0.4rem;
+  }
 `
 
 export const SubMenuDrawer = styled(Drawer)`
   .MuiDrawer-paper {
-    margin-left: 6.438rem;
-    width: 14.75rem;
+    margin-left: 5.9rem;
+    width: 17.75rem;
     background-color: #fff;
+
+    @media (max-width: 630px) {
+      margin-left: 3.1rem;
+      width: 15rem;
+    }
   }
 `
 
@@ -70,6 +106,10 @@ export const ToolbarLogo = styled(Toolbar)`
   margin-top: 0.625rem;
 
   font-size: 2.8rem;
+
+  @media (max-width: 630px) {
+    display: none;
+  }
 `
 export const ProfileAvatar = styled(Avatar)`
   width: 3.25rem;
@@ -78,6 +118,11 @@ export const ProfileAvatar = styled(Avatar)`
   margin-bottom: 2.5rem;
   margin-top: 2.5rem;
   cursor: pointer;
+
+  @media (max-width: 630px) {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
 `
 
 export const NotificationBadge = styled(Badge)`
@@ -109,6 +154,10 @@ export const ContentNotification = styled(Box)`
 
 export const ContentSubMenu = styled(Box)`
   overflow: auto;
+`
 
-  /* excluir isso talvez */
+export const Main = styled(Container)`
+  display: flex;
+  justify-content: center;
+
 `

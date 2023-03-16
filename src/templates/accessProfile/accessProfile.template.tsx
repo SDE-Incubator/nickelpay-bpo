@@ -1,14 +1,20 @@
 import { MoreIcon, RightArrowIcon } from '@/public'
-import { SideBar } from '@/src/components/sideBar/sideBar.component'
 import { Text } from '@/src/components/text'
 
 import * as Styles from './accessProfile.styles'
 
+import { useRouter } from 'next/router'
+import { RoutesPath } from '@/src/components/sideBar/sideBarRoutes'
+
 export function AccessProfileTemplate() {
+  const router = useRouter()
+
+  function handleNavigateToDetailsProfile(){
+    router.push(RoutesPath.DETAILS_ACCESS_PROFILE)
+  }
+
   return (
     <Styles.Container>
-      <SideBar/>
-
       <Styles.Content>
         <header>
           <Text fontweight='500' textsize='1.625rem' title='Configurações'/> 
@@ -26,7 +32,7 @@ export function AccessProfileTemplate() {
           <main>
 
             <Styles.ContainerTable>
-              <Styles.ContentTable>
+              <Styles.ContentTable stickyHeader>
                 <Styles.TableHeader>
                   <Styles.Row>
                     <Styles.Cell>Nome</Styles.Cell>
@@ -58,7 +64,7 @@ export function AccessProfileTemplate() {
                   <Styles.Row>
                     <Styles.Cell>Admistrador secundário</Styles.Cell>
                     <Styles.Cell>Ver tudo, editar, deletar</Styles.Cell>
-                    <Styles.Cell> <Styles.ButtonSvg> <RightArrowIcon /> </Styles.ButtonSvg> </Styles.Cell>
+                    <Styles.Cell> <Styles.ButtonSvg onClick={handleNavigateToDetailsProfile}> <RightArrowIcon /> </Styles.ButtonSvg> </Styles.Cell>
                   </Styles.Row>
                 </Styles.Body>
 

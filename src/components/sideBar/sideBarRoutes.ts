@@ -10,10 +10,6 @@ import {
   CheckShieldIcon,
 } from '../../../public'
 
-export const RoutesPath = {
-  DASHBOARD: '/dashboard',
-}
-
 // export const RoutesList = [
 //   {
 //     path: RoutesPath.DASHBOARD,
@@ -25,10 +21,42 @@ export const RoutesPath = {
 
 // ];
 
+export const RoutesPath = {
+  PROFILE: '/profile',
+  PROFILE_UPDATE_PASSWORD: '/profile/atualizar-senha',
+  DASHBOARD: '/dashboard',
+  ACCOUNT_ANALYSIS: '/analise/analise-de-contas',
+  TRANSACTION_ANALYSIS: '/analise/analise-de-transacoes',
+  CLIENTS: '/conta/clientes',
+  TRANSACTIONS: '/conta/transacoes',
+  AUTHORIZATION: '/conta/autorizacoes',
+  DIGITAL_ACCOUNTS: '/conta/contas-digitais',
+  LIMITS_AND_TIMES: '/customizacao/limites-e-horarios',
+  TAXES: '/customizacao/tarifas',
+  CUSTOM_TAXES: '/customizacao/tarifas-personalizadas',
+  CASH_IN: '/financeiro/entradas',
+  CASH_OUT: '/financeiro/saidas',
+  ACCOUNTANCY_REPORT: '/financeiro/relatorio-contabil',
+  BATCH_CASH_IN: '/financeiro/lote-entrada',
+  BATCH_CASH_IN_DETAILS: '/financeiro/lote-entrada/detalhe',
+  BATCH_CASH_OUT: '/financeiro/lote-saida',
+  CONFIGURATIONS: '/configuracoes',
+  CREATE_ACCESS_PROFILE: '/configuracoes/novo-perfil-de-acesso',
+  DETAILS_ACCESS_PROFILE: '/detalhes-perfil-de-acesso',
+  // EDIT_ACCESS_PROFILE: '/configuracoes/editar-perfil-de-acesso',
+  EDIT_ACCESS_PROFILE: '/editar-perfil-de-acesso',
+  ANALYSTS: '/configuracoes/analistas',
+  NOT_FOUND_PAGE: '/404',
+  FORGET_PASSWORD: '/esqueci-senha',
+  PRE_AUTHORIZATION_ANALYSIS: '/analise/analise-de-pre-autorizacoes',
+  CONTROL_CENTER: '/bpo/controle-de-centros',
+};
+
 export type SideBarRoutesProps = {
   name: string
   submenu: SubmenuProps[]
   Icon: (props: SvgIconProps) => JSX.Element
+  children: JSX.Element
 }
 
 export type SubmenuProps = {
@@ -175,7 +203,7 @@ export const sideBarRoutes: SideBarRoutesProps[] = [
         // permissions: ['settings-access/list'],
       },
       {
-        path: `/`,
+        path: `/usuarios`,
         name: 'Usuários',
         Icon: AccountsIcon,
         // permissions: ['settings-access/list'],

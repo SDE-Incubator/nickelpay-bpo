@@ -15,8 +15,10 @@ export default function App({Component, pageProps}: AppProps) {
       <ThemeProvider theme={theme}>
         <QueryClientProvider client={queryClient}>
           <Hydrate state={pageProps.dehydratedState}>
-            {/* <SideBar /> */}
-            <Component {...pageProps} />
+            <SideBar>
+              <Component {...pageProps} />
+            </SideBar>
+            
             <ReactQueryDevtools />
           </Hydrate>
         </QueryClientProvider>

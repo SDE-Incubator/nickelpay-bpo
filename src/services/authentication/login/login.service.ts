@@ -1,5 +1,9 @@
 import {apiClient} from '../../apiClient'
-import {LoginConfirmationCodeRequest, LoginRequest} from './login'
+import {
+  LoginConfirmationCodeRequest,
+  LoginConfirmationCodeResponse,
+  LoginRequest,
+} from './login'
 
 async function login({username, password}: LoginRequest) {
   const {data} = await apiClient({
@@ -16,13 +20,18 @@ async function login({username, password}: LoginRequest) {
   return data
 }
 
-async function loginConfirmationCode({code}: LoginConfirmationCodeRequest) {
-  const {data} = await apiClient({
+const loginConfirmationCode = async ({
+  code,
+}: LoginConfirmationCodeRequest): Promise<LoginConfirmationCodeResponse> => {
+  const {data} = await apiClient<LoginConfirmationCodeResponse>({
     method: 'POST',
     base: 'access',
     url: '/login/mfa',
     data: {code},
   })
+
+  localStorage.setItem(`@nickelpay/access_token`, data.access_token)
+  localStorage.setItem(`@nickelpay/refresh_token`, data.refresh_token)
 
   return data
 }

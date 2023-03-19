@@ -9,26 +9,15 @@ import {Button} from '@/src/components/button'
 import {Input} from '@/src/components/input'
 import {Text} from '@/src/components/text'
 import {Container, ContentButton, Form} from './recoverPassword.styles'
-import {RecoverPasswordCodeFormProps, TCodeForm} from './recoverPassword'
 import {SWAlert} from '@/src/libs/toast'
-import {
-  getCodeToRecoverPassword,
-  setCodeToRecoverPassword,
-} from '@/src/services/authentication/recoverPassword'
+import {getCodeToRecoverPassword} from '@/src/services/authentication/recoverPassword'
 import {TNewPasswordForm} from '../../recoverPassword'
 
 export function RecoverPasswordCodeForm() {
   const [totalTimeInSeconds, setTotalTimeInSeconds] = useState(60)
 
-  const {
-    handleSubmit,
-    handleBlur,
-    handleChange,
-    values,
-    errors,
-    validationSchema,
-    isSubmitting,
-  } = useFormikContext<TNewPasswordForm>()
+  const {handleSubmit, handleBlur, handleChange, values, errors, isSubmitting} =
+    useFormikContext<TNewPasswordForm>()
 
   const {isLoading: isLoadingResend, mutate: mutateResend} = useMutation(
     async () => {
@@ -81,11 +70,16 @@ export function RecoverPasswordCodeForm() {
 
   return (
     <Container>
-      <Text title="Redefinir senha" textsize='1.625rem' fontweight='500' marginbottom="1.2rem" />
+      <Text
+        title="Redefinir senha"
+        textsize="1.625rem"
+        fontweight="500"
+        marginbottom="1.2rem"
+      />
       <Text
         title="Digite o código que foi enviado para seu email"
         marginbottom="4.5rem"
-        textsize='1rem'
+        textsize="1rem"
       />
 
       <Form onSubmit={handleSubmit}>

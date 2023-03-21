@@ -1,5 +1,6 @@
 import {Button} from '@/src/components/button'
 import MUIDataTable from 'mui-datatables'
+import { useRouter } from 'next/router'
 
 import * as Styles from './customRates.styles'
 
@@ -110,6 +111,7 @@ const options = {
   filter: false,
   search: false,
 }
+
 
 export function CustomRatesTemplate() {
   return (

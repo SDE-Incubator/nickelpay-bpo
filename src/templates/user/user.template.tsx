@@ -1,13 +1,13 @@
 import Image from 'next/image'
 import * as Styles from './user.styles'
-import * as React from 'react'
 import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
 import {useRouter} from 'next/router'
 import {Button} from '@/src/components/button'
+import { useState } from 'react'
 
 export function UserTemplate() {
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = useState(false)
   const router = useRouter()
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)

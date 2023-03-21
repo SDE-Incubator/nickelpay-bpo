@@ -1,7 +1,5 @@
-import { UsersTemplate } from "../templates/users/users.template";
+import {UsersListTemplate} from '../templates/userList/userList.tamplate'
 
 export default function Users() {
-  return (
-    <UsersTemplate />
-  )
+  return <UsersListTemplate />
 }

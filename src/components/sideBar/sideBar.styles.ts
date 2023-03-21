@@ -5,6 +5,7 @@ import {
   Button,
   Container,
   Drawer,
+  IconButton,
   ListItem,
   ListItemIcon,
   SvgIcon,
@@ -132,6 +133,13 @@ export const NotificationBadge = styled(Badge)`
 
     cursor: pointer;
   }
+
+  > img {
+    cursor: pointer;
+    @media (max-width: 630px) {
+      width: 1.3rem;
+    }
+  }
 `
 
 export const LogoutButton = styled(Button)`
@@ -152,12 +160,7 @@ export const ContentNotification = styled(Box)`
   flex-direction: column;
 `
 
-export const ContentSubMenu = styled(Box)`
-  overflow: auto;
-`
-
 export const Main = styled(Container)`
   display: flex;
   justify-content: center;
-
 `

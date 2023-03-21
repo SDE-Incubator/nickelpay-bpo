@@ -1,8 +1,8 @@
 import {Button} from '@/src/components/button'
 import Link from 'next/link'
 import * as Styles from './accessProfileDetails.styles'
+import {useRouter} from 'next/router'
 
-import {RightArrowIcon, DownArrowIcon, LeftArrowIcon} from '@/public'
 import {
   modulesAccessControl,
   ModulesAccessControlProps,
@@ -11,7 +11,7 @@ import {useState} from 'react'
 
 import Box from '@mui/material/Box'
 import Collapse from '@mui/material/Collapse'
-
+import Image from 'next/image'
 
 type RowProps = {
   item: ModulesAccessControlProps
@@ -25,14 +25,26 @@ function Row({item}: RowProps) {
       <Styles.Row onClick={() => setOpen(!open)}>
         <Styles.Cell>
           {item.name}
-          <Styles.ButtonOpen
-            onClick={() => setOpen(!open)}
-          >
-            {open ? <DownArrowIcon /> : < RightArrowIcon/>}
+          <Styles.ButtonOpen onClick={() => setOpen(!open)}>
+            {open ? (
+              <Image
+                width={10}
+                height={10}
+                src="/DownArrowIcon.svg"
+                alt="esconder tabela oculta"
+              />
+            ) : (
+              <Image
+                src="/RightArrowIcon.svg"
+                alt="Mostar tabela oculta"
+                width={10}
+                height={10}
+              />
+            )}
           </Styles.ButtonOpen>
         </Styles.Cell>
         <Styles.Cell align="left">
-          <Styles.Check disabled/>
+          <Styles.Check disabled />
         </Styles.Cell>
         <Styles.Cell align="left">
           <Styles.Check disabled />
@@ -70,19 +82,19 @@ function Row({item}: RowProps) {
                       </Styles.Cell>
 
                       <Styles.Cell align="left">
-                        <Styles.Check disabled/>
+                        <Styles.Check disabled />
                       </Styles.Cell>
                       <Styles.Cell>
-                        <Styles.Check disabled/>
+                        <Styles.Check disabled />
                       </Styles.Cell>
                       <Styles.Cell>
-                        <Styles.Check disabled/>
+                        <Styles.Check disabled />
                       </Styles.Cell>
                       <Styles.Cell>
-                        <Styles.Check disabled/>
+                        <Styles.Check disabled />
                       </Styles.Cell>
                       <Styles.Cell>
-                        <Styles.Check disabled/>
+                        <Styles.Check disabled />
                       </Styles.Cell>
                     </Styles.Row>
                   ))}
@@ -97,13 +109,18 @@ function Row({item}: RowProps) {
 }
 
 export function AccessProfileDetailsTemplate() {
+  const router = useRouter()
+  function handleBack() {
+    router.push('/perfis-de-acesso')
+  }
+
   return (
     <Styles.Container>
       <Styles.Content>
         <Styles.Header>
           <div>
-            <Styles.ButtonSvg>
-              <LeftArrowIcon />
+            <Styles.ButtonSvg onClick={handleBack}>
+              <Image src="/LeftArrowIcon.svg" alt="" width={20} height={20} />
             </Styles.ButtonSvg>
             <Styles.TextContent>
               <Styles.Title variant="h5">Admistrador Secundário</Styles.Title>

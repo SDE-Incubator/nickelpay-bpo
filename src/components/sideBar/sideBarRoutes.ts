@@ -10,17 +10,6 @@ import {
   CheckShieldIcon,
 } from '../../../public'
 
-// export const RoutesList = [
-//   {
-//     path: RoutesPath.DASHBOARD,
-//     name: 'Home',
-//     component: Dashboard,
-//     exact: true,
-//     permissions: [],
-//   }
-
-// ];
-
 export const RoutesPath = {
   PROFILE: '/profile',
   PROFILE_UPDATE_PASSWORD: '/profile/atualizar-senha',
@@ -43,14 +32,13 @@ export const RoutesPath = {
   CONFIGURATIONS: '/configuracoes',
   CREATE_ACCESS_PROFILE: '/configuracoes/novo-perfil-de-acesso',
   DETAILS_ACCESS_PROFILE: '/detalhes-perfil-de-acesso',
-  // EDIT_ACCESS_PROFILE: '/configuracoes/editar-perfil-de-acesso',
   EDIT_ACCESS_PROFILE: '/editar-perfil-de-acesso',
   ANALYSTS: '/configuracoes/analistas',
   NOT_FOUND_PAGE: '/404',
   FORGET_PASSWORD: '/esqueci-senha',
   PRE_AUTHORIZATION_ANALYSIS: '/analise/analise-de-pre-autorizacoes',
   CONTROL_CENTER: '/bpo/controle-de-centros',
-};
+}
 
 export type SideBarRoutesProps = {
   name: string
@@ -135,13 +123,13 @@ export const sideBarRoutes: SideBarRoutesProps[] = [
         // permissions: ['limits-hours/list'],
       },
       {
-        path: '/',
+        path: '/tarifas',
         name: 'Tarifas',
         Icon: CustomizationIcon,
         // permissions: ['taxes/list'],
       },
       {
-        path: '/',
+        path: '/tarifas-personalizadas',
         name: 'Tarifas personalizadas',
         Icon: CustomizationIcon,
         // permissions: ['taxes-personalize/list'],

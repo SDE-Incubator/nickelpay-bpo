@@ -16,11 +16,9 @@ export function AccessProfileTemplate() {
     queryFn: getProfileAccessTypeAccess,
   })
 
-  function handleNavigateToDetailsProfile() {
-    router.push(RoutesPath.DETAILS_ACCESS_PROFILE)
+  function handleNavigateToDetailsProfile(id: string) {
+    router.push(`${RoutesPath.DETAILS_ACCESS_PROFILE}/${id}`)
   }
-
-  console.log({data})
 
   if (isLoading) {
     return <div>Loading...</div>
@@ -54,53 +52,20 @@ export function AccessProfileTemplate() {
                 </Styles.TableHeader>
 
                 <Styles.Body>
-                  <Styles.Row>
-                    <Styles.Cell>Admistrador</Styles.Cell>
-                    <Styles.Cell>Tudo</Styles.Cell>
-                    <Styles.Cell>
-                      <Styles.ButtonSvg>
-                        <RightArrowIcon />
-                      </Styles.ButtonSvg>
-                    </Styles.Cell>
-                  </Styles.Row>
-                  <Styles.Row>
-                    <Styles.Cell>Suporte</Styles.Cell>
-                    <Styles.Cell>Ver tudo, editar</Styles.Cell>
-                    <Styles.Cell>
-                      <Styles.ButtonSvg>
-                        <RightArrowIcon />
-                      </Styles.ButtonSvg>
-                    </Styles.Cell>
-                  </Styles.Row>
-                  <Styles.Row>
-                    <Styles.Cell>Convidado</Styles.Cell>
-                    <Styles.Cell>Ver Listagem</Styles.Cell>
-                    <Styles.Cell>
-                      <Styles.ButtonSvg>
-                        <RightArrowIcon />
-                      </Styles.ButtonSvg>
-                    </Styles.Cell>
-                  </Styles.Row>
-                  <Styles.Row>
-                    <Styles.Cell>Inspeção</Styles.Cell>
-                    <Styles.Cell>Ver Tudo</Styles.Cell>
-                    <Styles.Cell>
-                      <Styles.ButtonSvg>
-                        <RightArrowIcon />
-                      </Styles.ButtonSvg>
-                    </Styles.Cell>
-                  </Styles.Row>
-                  <Styles.Row>
-                    <Styles.Cell>Admistrador secundário</Styles.Cell>
-                    <Styles.Cell>Ver tudo, editar, deletar</Styles.Cell>
-                    <Styles.Cell>
-                      <Styles.ButtonSvg
-                        onClick={handleNavigateToDetailsProfile}
-                      >
-                        <RightArrowIcon />
-                      </Styles.ButtonSvg>
-                    </Styles.Cell>
-                  </Styles.Row>
+                  {data?.results?.map(result => (
+                    <Styles.Row key={result._id}>
+                      <Styles.Cell>{result.name}</Styles.Cell>
+                      <Styles.Cell>
+                        <Styles.ButtonSvg
+                          onClick={() =>
+                            handleNavigateToDetailsProfile(result._id)
+                          }
+                        >
+                          <RightArrowIcon />
+                        </Styles.ButtonSvg>
+                      </Styles.Cell>
+                    </Styles.Row>
+                  ))}
                 </Styles.Body>
               </Styles.ContentTable>
             </Styles.ContainerTable>

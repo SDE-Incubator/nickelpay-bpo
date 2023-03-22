@@ -1,18 +1,25 @@
-import {Box, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@mui/material'
+import {
+  Box,
+  IconButton,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from '@mui/material'
 import styled from 'styled-components'
 
 export const Container = styled(Box)`
-
   width: 100%;
   display: flex;
 
   height: 100vh;
   padding: 1rem;
 
-  @media(max-width: 630px){
+  @media (max-width: 630px) {
     margin-right: 3.5rem;
-  }   
-
+  }
 `
 
 export const Content = styled(Box)`
@@ -29,13 +36,11 @@ export const Content = styled(Box)`
     padding: 1.5rem 4.5rem;
     text-align: left;
     display: flex;
-    
 
-    @media(max-width: 630px){
+    @media (max-width: 630px) {
       padding-left: 5.5rem;
     }
   }
- 
 `
 
 export const Main = styled(Box)`
@@ -47,28 +52,23 @@ export const Main = styled(Box)`
   margin: 3.25rem auto 0;
   border-radius: 8px;
 
-
-  
   > main {
     width: 100%;
     max-height: 530px;
     overflow: auto;
-    
-    
+
     &::-webkit-scrollbar {
       width: 8px;
     }
 
     &::-webkit-scrollbar-track {
       background: ${({theme}) => theme.general[100]};
-
     }
 
     &::-webkit-scrollbar-thumb {
       background: ${({theme}) => theme.general[300]};
       border-radius: 8px;
-      border: 2px solid transparent; 
-      
+      border: 2px solid transparent;
     }
   }
 
@@ -77,60 +77,45 @@ export const Main = styled(Box)`
     align-items: center;
     justify-content: space-between;
     margin-bottom: 1.5rem;
-    
+
     > button {
       margin-right: 2.5rem;
     }
-    
-    @media(max-width: 630px){
+
+    @media (max-width: 630px) {
       margin-bottom: 0.5rem;
-      
+
       > button {
         margin-right: 0.5rem;
       }
     }
   }
 
-  @media(max-width: 630px){
+  @media (max-width: 630px) {
     max-width: 15.625rem;
     margin: 0 0 0 3.5rem;
-
   }
 `
 
-export const ContainerTable = styled(TableContainer)` 
+export const ContainerTable = styled(TableContainer)`
   max-height: 500px;
-
-  `;
-export const ContentTable = styled(Table)`
- 
- `;
-export const TableHeader = styled(TableHead)`
-  
-  `;
-export const Row = styled(TableRow) `
-  border: none;
-  
-  `;
-
+`
+export const ContentTable = styled(Table)``
+export const TableHeader = styled(TableHead)``
+export const Row = styled(TableRow)``
 
 export const Cell = styled(TableCell)`
   background: ${({theme}) => theme.general[100]};
 
-  border: none; 
-  @media(max-width: 630px){
-
+  @media (max-width: 630px) {
     font-size: 0.8rem;
   }
-
-`;
-export const Body = styled(TableBody)``;
+`
+export const Body = styled(TableBody)``
 export const ButtonSvg = styled(IconButton)`
-
   font-size: 1.2rem;
 
-  @media(max-width: 630px){
+  @media (max-width: 630px) {
     width: 2rem;
   }
-
-`;
+`

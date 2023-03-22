@@ -1,7 +1,8 @@
 import {apiClient} from '../../apiClient'
+import {GetProfileTypeAccessResponse} from './profileAccess'
 
-async function getProfileAccessTypeAccess() {
-  const {data} = await apiClient({
+async function getProfileAccessTypeAccess(): Promise<GetProfileTypeAccessResponse> {
+  const {data} = await apiClient<GetProfileTypeAccessResponse>({
     method: 'GET',
     base: 'account',
     url: '/typeaccess',

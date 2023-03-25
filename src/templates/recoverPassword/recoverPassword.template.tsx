@@ -1,7 +1,6 @@
 import {useRouter} from 'next/router'
 import {AxiosError} from 'axios'
 import {useCallback, useMemo, useState} from 'react'
-import {setCookie, getCookie} from 'cookies-next'
 import {useMutation} from '@tanstack/react-query'
 import {SWAlert} from '@/src/libs/toast'
 import {Formik, FormikHelpers} from 'formik'
@@ -46,7 +45,6 @@ export function RecoverPasswordTemplate() {
       switch (screen) {
         case 'EMAIL':
           response = await getCodeToRecoverPassword({username})
-          setCookie('@nickelpay/t oken', response.token)
           break
         case 'CODE':
           response = setCodeToRecoverPassword({code})
@@ -57,7 +55,7 @@ export function RecoverPasswordTemplate() {
             newPassword1,
             newPassword2,
             code,
-            token: String(getCookie('@nickelpay/token')),
+            token: String(localStorage.getItem('@nickelpay/token')),
           })
           break
         default:

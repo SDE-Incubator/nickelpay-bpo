@@ -2,116 +2,59 @@ import {Button} from '@/src/components/button'
 import Link from 'next/link'
 import * as Styles from './accessProfileDetails.styles'
 
-import {RightArrowIcon, DownArrowIcon, LeftArrowIcon} from '@/public'
-import {
-  modulesAccessControl,
-  ModulesAccessControlProps,
-} from './modulesAccessControl'
-import {useState} from 'react'
+import {LeftArrowIcon} from '@/public'
+import {modulesAccessControl} from './modulesAccessControl'
 
-import Box from '@mui/material/Box'
-import Collapse from '@mui/material/Collapse'
-
-
-type RowProps = {
-  item: ModulesAccessControlProps
-}
-
-function Row({item}: RowProps) {
-  const [open, setOpen] = useState(false)
-
-  return (
-    <>
-      <Styles.Row onClick={() => setOpen(!open)}>
-        <Styles.Cell>
-          {item.name}
-          <Styles.ButtonOpen
-            onClick={() => setOpen(!open)}
-          >
-            {open ? <DownArrowIcon /> : < RightArrowIcon/>}
-          </Styles.ButtonOpen>
-        </Styles.Cell>
-        <Styles.Cell align="left">
-          <Styles.Check disabled/>
-        </Styles.Cell>
-        <Styles.Cell align="left">
-          <Styles.Check disabled />
-        </Styles.Cell>
-        <Styles.Cell align="left">
-          <Styles.Check disabled />
-        </Styles.Cell>
-        <Styles.Cell align="left">
-          <Styles.Check disabled />
-        </Styles.Cell>
-        <Styles.Cell align="left">
-          <Styles.Check disabled />
-        </Styles.Cell>
-      </Styles.Row>
-      <Styles.Row>
-        <Styles.Cell style={{paddingBottom: 0, paddingTop: 0}} colSpan={6}>
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{margin: -2}}>
-              <Styles.ContentTable size="small" aria-label="purchases">
-                <Styles.TableHeader>
-                  <Styles.Row>
-                    <Styles.Cell></Styles.Cell>
-                    <Styles.Cell>Ver listagem</Styles.Cell>
-                    <Styles.Cell>Ver detalhes</Styles.Cell>
-                    <Styles.Cell>Criar</Styles.Cell>
-                    <Styles.Cell>Editar</Styles.Cell>
-                    <Styles.Cell>Deletar</Styles.Cell>
-                  </Styles.Row>
-                </Styles.TableHeader>
-                <Styles.Body>
-                  {item.submodules.map(access => (
-                    <Styles.Row key={access.id}>
-                      <Styles.Cell component="th" scope="row">
-                        {access.name}
-                      </Styles.Cell>
-
-                      <Styles.Cell align="left">
-                        <Styles.Check disabled/>
-                      </Styles.Cell>
-                      <Styles.Cell>
-                        <Styles.Check disabled/>
-                      </Styles.Cell>
-                      <Styles.Cell>
-                        <Styles.Check disabled/>
-                      </Styles.Cell>
-                      <Styles.Cell>
-                        <Styles.Check disabled/>
-                      </Styles.Cell>
-                      <Styles.Cell>
-                        <Styles.Check disabled/>
-                      </Styles.Cell>
-                    </Styles.Row>
-                  ))}
-                </Styles.Body>
-              </Styles.ContentTable>
-            </Box>
-          </Collapse>
-        </Styles.Cell>
-      </Styles.Row>
-    </>
-  )
-}
+import {useQuery} from '@tanstack/react-query'
+import {getProfileTypeAccess} from '@/src/services/configuration/profileTypeAccess'
+import {useRouter} from 'next/router'
+import {Permission, PermissionKey} from './accessProfileDetails'
+import {Row} from '@/src/components/row/row.component'
 
 export function AccessProfileDetailsTemplate() {
+  const {push} = useRouter()
+  const {query} = useRouter()
+
+  const {data, isLoading} = useQuery({
+    queryKey: ['typeAccess'],
+    queryFn: async () => {
+      if (!query?.id) return
+      return getProfileTypeAccess({id: String(query.id)})
+    },
+  })
+
+  const permissionObjects: Permission[] =
+    data?.permissions?.map(permission => {
+      const [id, action] = permission.split('/')
+      return {
+        id,
+        action: action as PermissionKey,
+      }
+    }) || []
+
+  const handleNavigate = () => {
+    push('/perfis-de-acesso')
+  }
+
+  if (isLoading) {
+    return <p>Loading...</p>
+  }
+
   return (
     <Styles.Container>
       <Styles.Content>
         <Styles.Header>
           <div>
-            <Styles.ButtonSvg>
+            <Styles.ButtonSvg onClick={handleNavigate}>
               <LeftArrowIcon />
             </Styles.ButtonSvg>
             <Styles.TextContent>
-              <Styles.Title variant="h5">Admistrador Secundário</Styles.Title>
+              <Styles.Title variant="h5">{data?.name}</Styles.Title>
 
               <div>
                 <Link href="/perfis-de-acesso">Configuraçoes</Link>
                 <Styles.Text>Perfis de Acesso</Styles.Text>
-                <Styles.Text>Admistrador secundário</Styles.Text>
+                <Styles.Text>{data?.name}</Styles.Text>
               </div>
             </Styles.TextContent>
           </div>
@@ -140,8 +83,12 @@ export function AccessProfileDetailsTemplate() {
             </Styles.TableHeader>
 
             <Styles.Body>
-              {modulesAccessControl.map(access => (
-                <Row key={access.id} item={access} />
+              {modulesAccessControl.map(module => (
+                <Row
+                  key={module.id}
+                  item={module}
+                  permissions={permissionObjects}
+                />
               ))}
             </Styles.Body>
           </Styles.ContentTable>

@@ -1,6 +1,15 @@
-type SubmodulesProps = {
+import {PermissionKey} from './accessProfileDetails'
+
+type Checked = {
+  active: boolean
+  access: PermissionKey
+}
+
+export type SubmodulesProps = {
   name: string
   id: string
+  checked?: boolean
+  permissions?: PermissionKey[]
 }
 
 export type ModulesAccessControlProps = {
@@ -9,17 +18,16 @@ export type ModulesAccessControlProps = {
   submodules: SubmodulesProps[]
 }
 
-
-export const modulesAccessControl = [
-  {
-    name: 'Todos',
-    id: 'all',
-    submodules: [],
-  },
+export const modulesAccessControl: ModulesAccessControlProps[] = [
+  // {
+  //   name: 'Todos',
+  //   id: 'all',
+  //   submodules: [],
+  // },
   {
     name: 'Análise',
     id: 'analyse',
-    
+
     submodules: [
       {
         name: 'Análise de contas',
@@ -130,4 +138,4 @@ export const modulesAccessControl = [
       },
     ],
   },
-];
+]

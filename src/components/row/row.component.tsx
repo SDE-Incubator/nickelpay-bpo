@@ -18,8 +18,9 @@ import {
   SubmodulesProps,
 } from '@/src/templates/accessProfileDetails/modulesAccessControl'
 import * as Styles from './row.styles'
-import {DownArrowIcon, RightArrowIcon} from '@/public'
+// import {DownArrowIcon, RightArrowIcon} from '@/public'
 import {cloneDeep} from 'lodash'
+import Image from 'next/image'
 
 type RowProps = {
   item: ModulesAccessControlProps
@@ -79,7 +80,11 @@ export function Row({item, permissions}: RowProps) {
         <TableCell sx={{border: 'none'}}>
           {moduleItem.name}
           <Styles.ButtonOpen onClick={() => setOpen(!open)}>
-            {open ? <DownArrowIcon /> : <RightArrowIcon />}
+            {open ? (
+              <Image src="/DownArrowIcon.svg" alt="" width={15} height={15} />
+            ) : (
+              <Image src="/RightArrowIcon.svg" alt="" width={15} height={15} />
+            )}
           </Styles.ButtonOpen>
         </TableCell>
         <TableCell align="left" sx={{border: 'none'}}>

@@ -5,12 +5,27 @@ import * as Styles from './accessProfile.styles'
 import {useRouter} from 'next/router'
 import {RoutesPath} from '@/src/components/sideBar/sideBarRoutes'
 import Image from 'next/image'
+import {useQuery} from '@tanstack/react-query'
+import {getProfileTypeAccessList} from '@/src/services/configuration/profileTypeAccess'
 
 export function AccessProfileTemplate() {
   const router = useRouter()
 
-  function handleNavigateToDetailsProfile() {
-    router.push(RoutesPath.DETAILS_ACCESS_PROFILE)
+  const {isLoading, data, isError} = useQuery({
+    queryKey: ['typeAccessList'],
+    queryFn: getProfileTypeAccessList,
+  })
+
+  function handleNavigateToDetailsProfile(id: string) {
+    router.push(`${RoutesPath.DETAILS_ACCESS_PROFILE}/${id}`)
+  }
+
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
+
+  if (isError) {
+    return <div>Erro</div>
   }
 
   return (
@@ -19,21 +34,13 @@ export function AccessProfileTemplate() {
         <header>
           <Text fontweight="500" textsize="1.625rem" title="Configurações" />
         </header>
-
         <Styles.Main>
           <header>
             <Text textsize="1.25rem" title="Perfis de acesso" />
-
             <Styles.ButtonSvg>
-              <Image
-                src="/moreIcon.svg"
-                alt=""
-                width={20}
-                height={20}
-              />
+              <Image src="/moreIcon.svg" alt="" width={20} height={20} />
             </Styles.ButtonSvg>
           </header>
-
           <main>
             <Styles.ContainerTable>
               <Styles.ContentTable stickyHeader>
@@ -45,88 +52,25 @@ export function AccessProfileTemplate() {
                 </Styles.TableHeader>
 
                 <Styles.Body>
-                  <Styles.Row>
-                    <Styles.Cell>Admistrador</Styles.Cell>
-                    <Styles.Cell>Tudo</Styles.Cell>
-                    <Styles.Cell>
-                      {' '}
-                      <Styles.ButtonSvg>
-                        {' '}
-                        <Image
-                          src="/rightArrowIcon.svg"
-                          alt=""
-                          width={15}
-                          height={15}
-                        />{' '}
-                      </Styles.ButtonSvg>{' '}
-                    </Styles.Cell>
-                  </Styles.Row>
-                  <Styles.Row>
-                    <Styles.Cell>Suporte</Styles.Cell>
-                    <Styles.Cell>Ver tudo, editar</Styles.Cell>
-                    <Styles.Cell>
-                      {' '}
-                      <Styles.ButtonSvg>
-                        {' '}
-                        <Image
-                          src="/rightArrowIcon.svg"
-                          alt=""
-                          width={15}
-                          height={15}
-                        />{' '}
-                      </Styles.ButtonSvg>{' '}
-                    </Styles.Cell>
-                  </Styles.Row>
-                  <Styles.Row>
-                    <Styles.Cell>Convidado</Styles.Cell>
-                    <Styles.Cell>Ver Listagem</Styles.Cell>
-                    <Styles.Cell>
-                      {' '}
-                      <Styles.ButtonSvg>
-                        {' '}
-                        <Image
-                          src="/rightArrowIcon.svg"
-                          alt=""
-                          width={15}
-                          height={15}
-                        />{' '}
-                      </Styles.ButtonSvg>{' '}
-                    </Styles.Cell>
-                  </Styles.Row>
-                  <Styles.Row>
-                    <Styles.Cell>Inspeção</Styles.Cell>
-                    <Styles.Cell>Ver Tudo</Styles.Cell>
-                    <Styles.Cell>
-                      {' '}
-                      <Styles.ButtonSvg>
-                        {' '}
-                        <Image
-                          src="/rightArrowIcon.svg"
-                          alt=""
-                          width={15}
-                          height={15}
-                        />{' '}
-                      </Styles.ButtonSvg>{' '}
-                    </Styles.Cell>
-                  </Styles.Row>
-                  <Styles.Row>
-                    <Styles.Cell>Admistrador secundário</Styles.Cell>
-                    <Styles.Cell>Ver tudo, editar, deletar</Styles.Cell>
-                    <Styles.Cell>
-                      {' '}
-                      <Styles.ButtonSvg
-                        onClick={handleNavigateToDetailsProfile}
-                      >
-                        {' '}
-                        <Image
-                          src="/rightArrowIcon.svg"
-                          alt=""
-                          width={15}
-                          height={15}
-                        />{' '}
-                      </Styles.ButtonSvg>{' '}
-                    </Styles.Cell>
-                  </Styles.Row>
+                  {data?.results?.map(result => (
+                    <Styles.Row key={result._id}>
+                      <Styles.Cell>{result.name}</Styles.Cell>
+                      <Styles.Cell>
+                        <Styles.ButtonSvg
+                          onClick={() =>
+                            handleNavigateToDetailsProfile(result._id)
+                          }
+                        >
+                          <Image
+                            src="/rightArrowIcon.svg"
+                            alt=""
+                            width={15}
+                            height={15}
+                          />
+                        </Styles.ButtonSvg>
+                      </Styles.Cell>
+                    </Styles.Row>
+                  ))}
                 </Styles.Body>
               </Styles.ContentTable>
             </Styles.ContainerTable>

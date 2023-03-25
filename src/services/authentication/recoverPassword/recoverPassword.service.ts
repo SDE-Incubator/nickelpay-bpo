@@ -18,7 +18,7 @@ async function getCodeToRecoverPassword({
       'Tenant-Key': process.env.NEXT_PUBLIC_TENANT_KEY,
     },
   })
-
+  localStorage.setItem('@nickelpay/token', data.token)
   return data
 }
 

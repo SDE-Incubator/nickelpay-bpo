@@ -16,7 +16,11 @@ export interface ProfileAccess {
   createdAt: Date
 }
 
-export interface GetProfileTypeAccessResponse {
+export interface GetProfileTypeAccessRequest {
+  id: string
+}
+
+export interface GetProfileTypeAccessListResponse {
   meta: GetProfileAccessTypeAccessMeta
   results: ProfileAccess[]
 }

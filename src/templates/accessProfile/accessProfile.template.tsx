@@ -6,14 +6,14 @@ import * as Styles from './accessProfile.styles'
 import {useRouter} from 'next/router'
 import {RoutesPath} from '@/src/components/sideBar/sideBarRoutes'
 import {useQuery} from '@tanstack/react-query'
-import {getProfileAccessTypeAccess} from '@/src/services/configuration/profileAccess/profileAccess.service'
+import {getProfileTypeAccessList} from '@/src/services/configuration/profileTypeAccess'
 
 export function AccessProfileTemplate() {
   const router = useRouter()
 
   const {isLoading, data, isError} = useQuery({
-    queryKey: ['typeaccess'],
-    queryFn: getProfileAccessTypeAccess,
+    queryKey: ['typeAccessList'],
+    queryFn: getProfileTypeAccessList,
   })
 
   function handleNavigateToDetailsProfile(id: string) {

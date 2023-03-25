@@ -17,11 +17,11 @@ export const Container = styled(Box)`
   width: 100%;
   max-width: 88.063rem;
 
-  @media(max-width: 1549px) {
+  @media (max-width: 1549px) {
     width: 60rem;
   }
 
-  @media(max-width: 1060px) {
+  @media (max-width: 1060px) {
     width: 55rem;
   }
 `
@@ -49,20 +49,15 @@ export const Header = styled(Box)`
     gap: 1rem;
   }
 
-  @media(max-width: 460px) { 
+  @media (max-width: 460px) {
     flex-direction: column-reverse;
-    >button {
+    > button {
       margin-left: 4rem;
     }
-    
   }
-
-
-
 `
 
 export const TextContent = styled(Box)`
-  
   div {
     display: flex;
     align-items: center;
@@ -71,7 +66,7 @@ export const TextContent = styled(Box)`
     a {
       font-family: 'roboto', sans-serif;
       font-weight: 300;
-      font-size: .9rem;
+      font-size: 0.9rem;
       color: #222;
     }
 
@@ -80,9 +75,7 @@ export const TextContent = styled(Box)`
     }
   }
 
-  @media(max-width: 460px) { 
-    
-    
+  @media (max-width: 460px) {
   }
 `
 
@@ -90,17 +83,13 @@ export const ContainerTable = styled(TableContainer)`
   max-height: 32rem;
   box-shadow: 0 0 8px 1px #c4c4c4;
 
-  @media(max-width: 460px) { 
+  @media (max-width: 460px) {
     width: 20rem;
     margin-left: 6rem;
-    
   }
-
 `
 export const ContentTable = styled(Table)``
-export const TableHeader = styled(TableHead)`
-
-`
+export const TableHeader = styled(TableHead)``
 export const Row = styled(TableRow)``
 
 export const Cell = styled(TableCell)`
@@ -109,8 +98,8 @@ export const Cell = styled(TableCell)`
 export const Body = styled(TableBody)``
 export const ButtonSvg = styled(IconButton)`
   font-size: 1.3rem;
-  @media(max-width: 460px) {
-    font-size: .9rem;
+  @media (max-width: 460px) {
+    font-size: 0.9rem;
     margin-left: 1rem;
   }
 `
@@ -118,7 +107,7 @@ export const ButtonSvg = styled(IconButton)`
 export const Title = styled(Typography)`
   font-weight: 500;
 
-  @media(max-width: 460px) {
+  @media (max-width: 460px) {
     font-size: 1rem;
   }
 `
@@ -135,26 +124,7 @@ export const Text = styled(Typography)`
     font-weight: 500;
   }
 
-  @media(max-width: 460px) { 
+  @media (max-width: 460px) {
     display: none;
-    
-  }
-
-  
-`
-
-export const Check = styled(Checkbox)`
-  &.Mui-checked {
-    color: #c4c4c4;
-    :hover {
-      background: transparent;
-    }
   }
 `
-
-export const ButtonOpen = styled(IconButton) `
-  font-size: .8rem;
-  @media(max-width: 460px) { 
-    font-size: .5rem;
-  }
-`;

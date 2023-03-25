@@ -1,33 +1,13 @@
-import {
-  Box,
-  IconButton,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography,
-} from '@mui/material'
+import {Box, Typography} from '@mui/material'
 import styled from 'styled-components'
 
 export const Container = styled(Box)`
   display: flex;
   width: 100%;
-  max-width: 88.063rem;
-
-  @media (max-width: 1549px) {
-    width: 60rem;
-  }
-
-  @media (max-width: 1060px) {
-    width: 55rem;
-  }
 `
 
 export const Content = styled(Box)`
   width: 100%;
-
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -43,16 +23,16 @@ export const Header = styled(Box)`
   gap: 1.25rem;
   width: 100%;
 
+  @media (max-width: 1280px) {
+    margin-left: 6.5rem;
+  }
+  @media (max-width: 460px) {
+    margin-left: 2rem;
+  }
+
   > div {
     display: flex;
     gap: 1rem;
-  }
-
-  @media (max-width: 460px) {
-    flex-direction: column-reverse;
-    > button {
-      margin-left: 4rem;
-    }
   }
 `
 
@@ -65,7 +45,7 @@ export const TextContent = styled(Box)`
     a {
       font-family: 'roboto', sans-serif;
       font-weight: 300;
-      font-size: 0.9rem;
+      font-size: 14px;
       color: #222;
     }
 
@@ -73,42 +53,42 @@ export const TextContent = styled(Box)`
       text-decoration: underline;
     }
   }
-
-  @media (max-width: 460px) {
-  }
 `
 
-export const ContainerTable = styled(TableContainer)`
-  max-height: 32rem;
+export const Main = styled(Box)`
+  width: 100%;
+  margin: 0 auto;
+  overflow: auto;
   box-shadow: 0 0 8px 1px #c4c4c4;
-
-  @media (max-width: 460px) {
-    width: 20rem;
-    margin-left: 6rem;
+  @media (max-width: 1280px) {
+    width: 60rem;
   }
-`
-export const ContentTable = styled(Table)``
-export const TableHeader = styled(TableHead)``
-export const Row = styled(TableRow)``
 
-export const Cell = styled(TableCell)`
-  border: none;
-`
-export const Body = styled(TableBody)``
-export const ButtonSvg = styled(IconButton)`
-  font-size: 1.3rem;
+  @media (max-width: 860px) {
+    margin-left: 5.7rem;
+    width: 35rem;
+  }
+
   @media (max-width: 460px) {
-    font-size: 0.9rem;
     margin-left: 1rem;
+    width: 18rem;
+  }
+
+  table {
+    tr:nth-child(even) {
+      background: ${({theme}) => theme.general[75]};
+    }
+    td {
+      padding: 1.6rem;
+      @media (max-width: 460px) {
+        padding: 0.2rem;
+      }
+    }
   }
 `
 
 export const Title = styled(Typography)`
   font-weight: 500;
-
-  @media (max-width: 460px) {
-    font-size: 1rem;
-  }
 `
 
 export const Text = styled(Typography)`
@@ -118,12 +98,8 @@ export const Text = styled(Typography)`
 
   &::before {
     content: '>';
-    margin: 0 5px;
+    margin: 0 0.7rem;
     color: gray;
     font-weight: 500;
-  }
-
-  @media (max-width: 460px) {
-    display: none;
   }
 `

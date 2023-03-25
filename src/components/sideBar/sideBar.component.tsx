@@ -5,13 +5,15 @@ import {
   SideBarRoutesProps,
   SubmenuProps,
 } from './sideBarRoutes'
-import {List, Link} from '@mui/material'
+import {List, Link, Button} from '@mui/material'
 import {LogoNickel, NotificationIcon} from '../../../public'
 import * as Styles from './sideBar.styles'
 import {Text} from '../text'
 
 import {useRouter} from 'next/router'
+import Image from 'next/image'
 export function SideBar({children}: SideBarRoutesProps) {
+  const [menuMain, setMenuMain] = useState(false)
   const [menuWithSubmenu, setMenuWithSubmenu] =
     useState<SideBarRoutesProps | null>(null)
   const router = useRouter()
@@ -31,12 +33,17 @@ export function SideBar({children}: SideBarRoutesProps) {
 
   return (
     <Styles.MainContainer>
-      <Styles.ContentDrawer variant='permanent'>
+      <Styles.ContentDrawer variant="permanent">
         <Styles.Content>
           <List>
             <Styles.ToolbarLogo>
               <Link href={RoutesPath.DASHBOARD}>
-                <LogoNickel />
+                <Image
+                  width={45}
+                  height={45}
+                  src="/logoNickel.svg"
+                  alt="logo"
+                />
               </Link>
             </Styles.ToolbarLogo>
             {sideBarRoutes.map(item => {
@@ -55,9 +62,17 @@ export function SideBar({children}: SideBarRoutesProps) {
           </List>
           <Styles.ContentNotification>
             <Styles.NotificationBadge badgeContent={1}>
-              <NotificationIcon />
+              <Image
+                width={25}
+                height={25}
+                src="/notificationIcon.svg"
+                alt="logo"
+              />
             </Styles.NotificationBadge>
-            <Styles.ProfileAvatar onClick={handleProfile} src="https://source.unsplash.com/800x600/?face" />
+            <Styles.ProfileAvatar
+              onClick={handleProfile}
+              src="https://source.unsplash.com/800x600/?face"
+            />
             <Styles.LogoutButton>SAIR</Styles.LogoutButton>
           </Styles.ContentNotification>
         </Styles.Content>
@@ -77,30 +92,27 @@ export function SideBar({children}: SideBarRoutesProps) {
           />
         </Styles.SubMenuToolbar>
 
-        <Styles.ContentSubMenu>
-          <List>
-            {menuWithSubmenu &&
-              menuWithSubmenu?.submenu?.map(item => {
-                const {Icon: IconMenu} = item
-                return (
-                  <Styles.SubMenuListItem
-                    onClick={() => handleClickSubMenuItem(item)}
-                    key={item.name}
-                    id={item.name}
-                  >
-                    <Styles.SubMenuIcon>
-                      <Styles.IconSubMenu component={IconMenu} />
-                    </Styles.SubMenuIcon>
-                    <span>{item.name}</span>
-                  </Styles.SubMenuListItem>
-                )
-              })}
-          </List>
-        </Styles.ContentSubMenu>
+        <List>
+          {menuWithSubmenu &&
+            menuWithSubmenu?.submenu?.map(item => {
+              const {Icon: IconMenu} = item
+              return (
+                <Styles.SubMenuListItem
+                  onClick={() => handleClickSubMenuItem(item)}
+                  key={item.name}
+                  id={item.name}
+                >
+                  <Styles.SubMenuIcon>
+                    <Styles.IconSubMenu component={IconMenu} />
+                  </Styles.SubMenuIcon>
+                  <span>{item.name}</span>
+                </Styles.SubMenuListItem>
+              )
+            })}
+        </List>
       </Styles.SubMenuDrawer>
-      
-      <Styles.Main maxWidth='xl'>{children}</Styles.Main>
+
+      <Styles.Main maxWidth="xl">{children}</Styles.Main>
     </Styles.MainContainer>
-  
   )
 }

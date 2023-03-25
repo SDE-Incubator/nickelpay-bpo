@@ -1,10 +1,10 @@
-import {MoreIcon, RightArrowIcon} from '@/public'
 import {Text} from '@/src/components/text'
 
 import * as Styles from './accessProfile.styles'
 
 import {useRouter} from 'next/router'
 import {RoutesPath} from '@/src/components/sideBar/sideBarRoutes'
+import Image from 'next/image'
 import {useQuery} from '@tanstack/react-query'
 import {getProfileTypeAccessList} from '@/src/services/configuration/profileTypeAccess'
 
@@ -38,7 +38,7 @@ export function AccessProfileTemplate() {
           <header>
             <Text textsize="1.25rem" title="Perfis de acesso" />
             <Styles.ButtonSvg>
-              <MoreIcon />
+              <Image src="/moreIcon.svg" alt="" width={20} height={20} />
             </Styles.ButtonSvg>
           </header>
           <main>
@@ -61,7 +61,12 @@ export function AccessProfileTemplate() {
                             handleNavigateToDetailsProfile(result._id)
                           }
                         >
-                          <RightArrowIcon />
+                          <Image
+                            src="/rightArrowIcon.svg"
+                            alt=""
+                            width={15}
+                            height={15}
+                          />
                         </Styles.ButtonSvg>
                       </Styles.Cell>
                     </Styles.Row>

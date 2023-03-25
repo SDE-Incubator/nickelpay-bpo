@@ -1,6 +1,7 @@
 const theme = {
   general: {
     25: "#E8E8E8",
+    50: "#c4c4c4",
     75: "#F5F5F5",
     85: "#ffffff", // white
     100: "#F1EFEF", //off-white

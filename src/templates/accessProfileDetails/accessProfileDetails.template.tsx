@@ -1,15 +1,15 @@
-import {Button} from '@/src/components/button'
+import {useRouter} from 'next/router'
 import Link from 'next/link'
-import * as Styles from './accessProfileDetails.styles'
+import {useQuery} from '@tanstack/react-query'
 
 import {LeftArrowIcon} from '@/public'
 import {modulesAccessControl} from './modulesAccessControl'
 
-import {useQuery} from '@tanstack/react-query'
+import {Button} from '@/src/components/button'
 import {getProfileTypeAccess} from '@/src/services/configuration/profileTypeAccess'
-import {useRouter} from 'next/router'
 import {Permission, PermissionKey} from './accessProfileDetails'
 import {Row} from '@/src/components/row/row.component'
+import * as Styles from './accessProfileDetails.styles'
 
 export function AccessProfileDetailsTemplate() {
   const {push} = useRouter()

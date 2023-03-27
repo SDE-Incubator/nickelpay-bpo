@@ -1,18 +1,26 @@
 import Image from 'next/image'
 import * as Styles from './user.styles'
-import Typography from '@mui/material/Typography'
-import Modal from '@mui/material/Modal'
+import {Modal, Typography, Menu, MenuItem} from '@mui/material'
 import {useRouter} from 'next/router'
 import {Button} from '@/src/components/button'
-import { useState } from 'react'
+import {useState} from 'react'
 
 export function UserTemplate() {
   const [open, setOpen] = useState(false)
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+  const openMenu = Boolean(anchorEl)
   const router = useRouter()
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
   function handleBack() {
     router.push('/')
+  }
+
+  function handleOpenMenu(event: React.MouseEvent<HTMLButtonElement>) {
+    setAnchorEl(event.currentTarget)
+  }
+  function handleCloseMenu() {
+    setAnchorEl(null)
   }
 
   return (
@@ -37,7 +45,13 @@ export function UserTemplate() {
 
         <Styles.Main>
           <header>
-            <Styles.ButtonSvg onClick={handleOpen}>
+            <Styles.ButtonSvg
+              id="resources-button"
+              onClick={handleOpenMenu}
+              aria-controls={openMenu ? 'resources-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={openMenu ? 'true' : undefined}
+            >
               <Image
                 src="/moreIcon.svg"
                 alt="mais opções"
@@ -45,6 +59,18 @@ export function UserTemplate() {
                 height={20}
               />
             </Styles.ButtonSvg>
+            <Menu
+              id="resources-menu"
+              anchorEl={anchorEl}
+              open={openMenu}
+              MenuListProps={{
+                'aria-labelledby': 'resources-button',
+              }}
+              onClose={handleCloseMenu}
+            >
+              <MenuItem>editar</MenuItem>
+              <MenuItem onClick={handleOpen}>histórico de alteraçãoes</MenuItem>
+            </Menu>
             <Modal
               open={open}
               onClose={handleClose}

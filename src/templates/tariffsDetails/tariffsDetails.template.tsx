@@ -1,19 +1,32 @@
 import {Button} from '@/src/components/button'
-import {IconButton, Modal, Typography} from '@mui/material'
+import {IconButton, Menu, MenuItem, Modal, Typography} from '@mui/material'
 import Image from 'next/image'
+import {useRouter} from 'next/router'
 import {useState} from 'react'
 import * as Styles from './tariffsDetails.styles'
 
 export function TariffsDetailsTemplate() {
   const [open, setOpen] = useState(false)
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+  const openMenu = Boolean(anchorEl)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
+  const router = useRouter()
+  function handleBack() {
+    router.push('/tarifas-personalizadas')
+  }
+  function handleOpenMenu(event: React.MouseEvent<HTMLButtonElement>) {
+    setAnchorEl(event.currentTarget)
+  }
+  function handleCloseMenu() {
+    setAnchorEl(null)
+  }
   return (
     <Styles.Container>
       <Styles.Content>
         <Styles.Header>
           <div>
-            <Styles.ButtonSvg>
+            <Styles.ButtonSvg onClick={handleBack}>
               <Image src="/LeftArrowIcon.svg" alt="" width={20} height={20} />
             </Styles.ButtonSvg>
             <Styles.TextContent>
@@ -32,7 +45,13 @@ export function TariffsDetailsTemplate() {
           <Styles.FareDetails>
             <Styles.HeaderDetails>
               <Typography variant="h6">Detalhes da tarifa</Typography>
-              <IconButton onClick={handleOpen}>
+              <IconButton
+                id="resources-button"
+                onClick={handleOpenMenu}
+                aria-controls={openMenu ? 'resources-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={openMenu ? 'true' : undefined}
+              >
                 <Image
                   src="/moreIcon.svg"
                   alt="mais opções"
@@ -40,6 +59,20 @@ export function TariffsDetailsTemplate() {
                   height={20}
                 />
               </IconButton>
+              <Menu
+                id="resources-menu"
+                anchorEl={anchorEl}
+                open={openMenu}
+                MenuListProps={{
+                  'aria-labelledby': 'resources-button',
+                }}
+                onClose={handleCloseMenu}
+              >
+                <MenuItem>editar</MenuItem>
+                <MenuItem onClick={handleOpen}>
+                  histórico de alteraçãoes
+                </MenuItem>
+              </Menu>
               <Modal
                 open={open}
                 onClose={handleClose}
@@ -62,15 +95,15 @@ export function TariffsDetailsTemplate() {
                         <span>História de atividades fica aqui</span>
                       </div>
                     </Styles.UpdateInformation>
-                      <Button
-                        textcolor="#756B6B"
-                        bordercolor="#756B6B"
-                        width="10rem"
-                        height="3rem"
-                        onClick={handleClose}
-                      >
-                        Voltar
-                      </Button>
+                    <Button
+                      textcolor="#756B6B"
+                      bordercolor="#756B6B"
+                      width="10rem"
+                      height="3rem"
+                      onClick={handleClose}
+                    >
+                      Voltar
+                    </Button>
                   </Styles.Changes>
                 </Styles.ContentModal>
               </Modal>

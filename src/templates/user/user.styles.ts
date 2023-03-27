@@ -188,7 +188,7 @@ export const UpdateInformation = styled(Box)`
 
     span {
       font-family: 'roboto', sans-serif;
-      font-size: 0.7rem;
+      font-size: .8rem;
       color: ${({theme}) => theme.general[200]};
     }
   }

@@ -1,5 +1,7 @@
+import { Button } from '@/src/components/button'
 import {
   IconButton,
+  Modal,
   Table,
   TableBody,
   TableCell,
@@ -9,9 +11,14 @@ import {
   Typography,
 } from '@mui/material'
 import Image from 'next/image'
+import { useState } from 'react'
 import * as Styles from './tariffs.styles'
 
 export function TariffsTemplate() {
+
+  const [open, setOpen] = useState(false)
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
   return (
     <Styles.Container>
       <Styles.Content>
@@ -45,7 +52,7 @@ export function TariffsTemplate() {
                       height={25}
                     />
                   </IconButton>
-                  <IconButton>
+                  <IconButton onClick={handleOpen}>
                     <Image
                       src="/reloadIcon.svg"
                       alt="recarregar"
@@ -259,6 +266,43 @@ export function TariffsTemplate() {
           </Styles.PartnerRates>
         </Styles.Main>
       </Styles.Content>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Styles.ContentModal>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Histórico de alterações
+          </Typography>
+
+          <Styles.Changes>
+            <Styles.UpdateInformation>
+              <Styles.TextModal>Tarifas</Styles.TextModal>
+              <div>
+                <span>Vitor - Q&A alterou Transferência entre contas Nickelpay - Crédito para R$ 1,00</span>
+              </div>
+              <div>
+                <span>
+                Beatriz alterou Transferência entre contas Nickelpay - Crédito para R$ 0,00
+                </span>
+              </div>
+            </Styles.UpdateInformation>
+            <Styles.Footer>
+              <Button
+                textcolor="#756B6B"
+                bordercolor="#756B6B"
+                width="10rem"
+                height="3rem"
+                onClick={handleClose}
+              >
+                Voltar
+              </Button>
+            </Styles.Footer>
+          </Styles.Changes>
+        </Styles.ContentModal>
+      </Modal>
     </Styles.Container>
   )
 }

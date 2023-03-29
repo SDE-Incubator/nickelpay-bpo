@@ -1,4 +1,5 @@
-import { Button } from '@/src/components/button'
+import {Button} from '@/src/components/button'
+import { Header } from '@/src/components/header'
 import {
   IconButton,
   Modal,
@@ -11,30 +12,17 @@ import {
   Typography,
 } from '@mui/material'
 import Image from 'next/image'
-import { useState } from 'react'
+import {useState} from 'react'
 import * as Styles from './tariffs.styles'
 
 export function TariffsTemplate() {
-
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
   return (
     <Styles.Container>
       <Styles.Content>
-        <Styles.Header>
-          <div>
-            <Styles.TextContent>
-              <Styles.Title variant="h5">Tarifas</Styles.Title>
-
-              <div>
-                <Styles.Text>Customização</Styles.Text>
-
-                <Styles.Text>Tarifas</Styles.Text>
-              </div>
-            </Styles.TextContent>
-          </div>
-        </Styles.Header>
+        <Header title="Tarifas" />
 
         <Styles.Main>
           <Styles.StandardRates>
@@ -281,11 +269,15 @@ export function TariffsTemplate() {
             <Styles.UpdateInformation>
               <Styles.TextModal>Tarifas</Styles.TextModal>
               <div>
-                <span>Vitor - Q&A alterou Transferência entre contas Nickelpay - Crédito para R$ 1,00</span>
+                <span>
+                  Vitor - Q&A alterou Transferência entre contas Nickelpay -
+                  Crédito para R$ 1,00
+                </span>
               </div>
               <div>
                 <span>
-                Beatriz alterou Transferência entre contas Nickelpay - Crédito para R$ 0,00
+                  Beatriz alterou Transferência entre contas Nickelpay - Crédito
+                  para R$ 0,00
                 </span>
               </div>
             </Styles.UpdateInformation>

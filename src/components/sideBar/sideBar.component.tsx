@@ -5,15 +5,13 @@ import {
   SideBarRoutesProps,
   SubmenuProps,
 } from './sideBarRoutes'
-import {List, Link, Button} from '@mui/material'
-import {LogoNickel, NotificationIcon} from '../../../public'
+import {List, Link} from '@mui/material'
 import * as Styles from './sideBar.styles'
 import {Text} from '../text'
 
 import {useRouter} from 'next/router'
 import Image from 'next/image'
 export function SideBar({children}: SideBarRoutesProps) {
-  const [menuMain, setMenuMain] = useState(false)
   const [menuWithSubmenu, setMenuWithSubmenu] =
     useState<SideBarRoutesProps | null>(null)
   const router = useRouter()

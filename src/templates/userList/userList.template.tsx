@@ -12,7 +12,6 @@ const options = {
   print: false,
   viewColumns: false,
   checkbox: false,
-  pagination: false,
   selectableRows: false,
 }
 

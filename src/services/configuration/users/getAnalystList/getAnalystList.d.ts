@@ -1,3 +1,10 @@
+export interface AnalystListRequest {
+  q?: string
+  page?: number
+  limit?: number
+  orderBy?: string
+}
+
 export interface AnalystListMetadata {
   current_page: 0
   current_count: 15
@@ -8,6 +15,7 @@ export interface AnalystListMetadata {
 
 interface TypeAccess {
   _id: string
+  name?: string
 }
 
 export interface AnalystResult {
@@ -26,4 +34,16 @@ export interface AnalystResult {
 export interface GetAnalystListResponse {
   results: AnalystResult[]
   meta: AnalystListMetadata
+}
+
+export interface AnalystFormatted {
+  name: string
+  email: string
+  typeAccess: TypeAccess[]
+  status: 'Ativo' | 'Inativo'
+}
+
+export interface GetAnalystListReturn {
+  meta: AnalystListMetadata
+  data: AnalystFormatted[]
 }

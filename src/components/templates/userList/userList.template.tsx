@@ -5,17 +5,11 @@ import Link from 'next/link'
 import {TypeAccess} from '@/src/services/configuration/users/getAnalystList'
 import * as Styles from './userList.styles'
 import {useUsers} from '@/src/hooks/useUsers'
+import {useRouter} from 'next/router'
 
-const options = {
-  filterType: 'dropdown',
-  download: false,
-  print: false,
-  viewColumns: false,
-  checkbox: false,
-  selectableRows: false,
-}
+export function UserListTemplate() {
+  const {push} = useRouter()
 
-export function UsersListTemplate() {
   const {data, isLoading, onNextPage, onPrevPage} = useUsers()
 
   const columns = useMemo(
@@ -57,7 +51,16 @@ export function UsersListTemplate() {
     []
   )
 
-  console.log(data)
+  const options = {
+    filterType: 'dropdown',
+    download: false,
+    print: false,
+    viewColumns: false,
+    checkbox: false,
+    selectableRows: 'none',
+    onRowClick: (_, {dataIndex}) =>
+      push(`/usuarios/${data?.results[dataIndex]?._id}`),
+  }
 
   if (isLoading) {
     return <p>Loading...</p>
@@ -69,9 +72,9 @@ export function UsersListTemplate() {
         <Styles.Header>
           <div>
             <Styles.TextContent>
-              <Styles.Title variant="h5">Usuarios</Styles.Title>
+              <Styles.Title variant="h5">Usuários</Styles.Title>
               <div>
-                <Link href="">Configuraçoes</Link>
+                <Link href="">Configurações</Link>
                 <Styles.Text>Usuários</Styles.Text>
               </div>
             </Styles.TextContent>
@@ -82,6 +85,7 @@ export function UsersListTemplate() {
             title="Usuários"
             data={data?.results}
             columns={columns}
+            serverSide={true}
             options={options}
           />
         </Styles.Main>

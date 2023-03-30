@@ -2,7 +2,7 @@ import {useQuery} from '@tanstack/react-query'
 import {useRouter} from 'next/router'
 import {useState} from 'react'
 
-import {getAnalystList} from '@/src/services/configuration/users/getAnalystList'
+import {getAnalystList} from '@/src/services/configuration/users/getUsers'
 import {getProfileTypeAccessList} from '../../services/configuration/profileTypeAccess'
 
 export const useUsers = () => {
@@ -65,7 +65,7 @@ export const useUsers = () => {
         }
       })
 
-      return {results: customData, meta}
+      return {results: customData || [], meta}
     },
   })
 

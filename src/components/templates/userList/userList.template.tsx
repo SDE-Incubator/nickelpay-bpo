@@ -2,7 +2,7 @@ import {useMemo} from 'react'
 import MUIDataTable from 'mui-datatables'
 import Link from 'next/link'
 
-import {TypeAccess} from '@/src/services/configuration/users/getAnalystList'
+import {TypeAccess} from '@/src/services/configuration/users/getUsers'
 import * as Styles from './userList.styles'
 import {useUsers} from '@/src/hooks/useUsers'
 import {useRouter} from 'next/router'

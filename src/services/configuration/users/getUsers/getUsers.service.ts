@@ -3,7 +3,7 @@ import {
   AnalystListRequest,
   GetAnalystListResponse,
   GetAnalystListReturn,
-} from './getAnalystList'
+} from './getUsers'
 
 export const getAnalystList = async ({
   q = '',

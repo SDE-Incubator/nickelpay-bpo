@@ -29,6 +29,7 @@ export const getAnalystList = async ({
         email: result.email,
         typeAccess: result.type_access,
         status: result.deactivated ? 'Inativo' : 'Ativo',
+        _id: result._id,
       }
     }),
   }

@@ -41,6 +41,7 @@ export interface AnalystFormatted {
   email: string
   typeAccess: TypeAccess[]
   status: 'Ativo' | 'Inativo'
+  _id: string
 }
 
 export interface GetAnalystListReturn {

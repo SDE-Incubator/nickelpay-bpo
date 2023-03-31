@@ -6,5 +6,5 @@ export type {
   GetAnalystListResponse,
   GetAnalystListReturn,
   TypeAccess,
-} from './getAnalystList'
-export {getAnalystList} from './getAnalystList.service'
+} from './getUsers'
+export {getAnalystList} from './getUsers.service'

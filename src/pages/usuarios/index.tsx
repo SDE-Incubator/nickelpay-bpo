@@ -1,5 +1,5 @@
-import {UsersListTemplate} from '@/src/templates/userList/userList.template'
+import {UserListTemplate} from '@/src/components/templates/userList'
 
 export default function Users() {
-  return <UsersListTemplate />
+  return <UserListTemplate />
 }

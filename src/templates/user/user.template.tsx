@@ -1,19 +1,29 @@
-import Image from 'next/image'
-import * as Styles from './user.styles'
-import {Modal, Typography, Menu, MenuItem} from '@mui/material'
-import {useRouter} from 'next/router'
-import {Button} from '@/src/components/button'
 import {useState} from 'react'
+import Image from 'next/image'
+import {useRouter} from 'next/router'
+import {Modal, Typography, Menu, MenuItem} from '@mui/material'
+
+import * as Styles from './user.styles'
+import {Button} from '@/src/components/button'
+import {useUser} from '@/src/hooks/useUser/useUser.hook'
+import {analystHistoryType} from '@/src/constants'
+import {format} from 'date-fns'
+import {HistoryList} from './user'
 
 export function UserTemplate() {
   const [open, setOpen] = useState(false)
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+
   const openMenu = Boolean(anchorEl)
-  const router = useRouter()
+  const {replace} = useRouter()
+
+  const {data, isLoading} = useUser()
+
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
+
   function handleBack() {
-    router.push('/')
+    replace('/usuarios')
   }
 
   function handleOpenMenu(event: React.MouseEvent<HTMLButtonElement>) {
@@ -21,6 +31,19 @@ export function UserTemplate() {
   }
   function handleCloseMenu() {
     setAnchorEl(null)
+  }
+
+  const historyList: HistoryList[] | undefined = data?.histories?.map(
+    (item, index) => ({
+      id: `${item._id}_${index}`,
+      change: `${item?.user_id?.name || item?.analyst_id?.name} ${
+        analystHistoryType[item.type]
+      } ${format(new Date(item.updatedAt), "dd/MM/yyyy 'às' k:m")}`,
+    })
+  )
+
+  if (isLoading) {
+    return <p>Loading...</p>
   }
 
   return (
@@ -32,12 +55,12 @@ export function UserTemplate() {
               <Image src="/LeftArrowIcon.svg" alt="" width={20} height={20} />
             </Styles.ButtonSvg>
             <Styles.TextContent>
-              <Styles.Title variant="h5">Beatriz</Styles.Title>
+              <Styles.Title variant="h5">{data?.name}</Styles.Title>
 
               <div>
-                <span>Configuraçoes</span>
+                <span>Configurações</span>
                 <Styles.Text>Usuários</Styles.Text>
-                <Styles.Text>Beatriz</Styles.Text>
+                <Styles.Text>{data?.name}</Styles.Text>
               </div>
             </Styles.TextContent>
           </div>
@@ -68,8 +91,7 @@ export function UserTemplate() {
               }}
               onClose={handleCloseMenu}
             >
-              <MenuItem>editar</MenuItem>
-              <MenuItem onClick={handleOpen}>histórico de alteraçãoes</MenuItem>
+              <MenuItem onClick={handleOpen}>Histórico de alteraçãoes</MenuItem>
             </Menu>
             <Modal
               open={open}
@@ -85,22 +107,11 @@ export function UserTemplate() {
                 <Styles.Changes>
                   <Styles.UpdateInformation>
                     <Styles.TextModal>Perfil</Styles.TextModal>
-                    <div>
-                      <span>
-                        Beatriz criou este usuário. 13/01/2023 às 17:58
-                      </span>
-                    </div>
-                    <div>
-                      <span>
-                        Beatriz atualizou informações deste usuário. 13/01/2023
-                        às 17:59
-                      </span>
-                    </div>
-                    <div>
-                      <span>
-                        Beatriz criou este usuário. 13/01/2023 às 17:58
-                      </span>
-                    </div>
+                    {historyList?.map(history => (
+                      <div key={history.id}>
+                        <span>{history.change}</span>
+                      </div>
+                    ))}
                   </Styles.UpdateInformation>
                   <Styles.Footer>
                     <Button
@@ -122,24 +133,24 @@ export function UserTemplate() {
           <Styles.ProfileInformation>
             <div>
               <strong>Nome</strong>
-              <span>Beatriz</span>
+              <span>{data?.name}</span>
             </div>
 
             <div>
               <strong>Email</strong>
-              <span>beatriz.calepso@nickelpay.com.br</span>
+              <span>{data?.email}</span>
             </div>
 
             <div>
               <strong>Tipo de perfis</strong>
-              <span>
-                Administrator Master Analista de Compliance Analista Financeiro
-              </span>
+              {data?.type_access.map(access => (
+                <span key={access._id}>{access?.name || ''}</span>
+              ))}
             </div>
 
             <div>
               <strong>Status</strong>
-              <span>Ativo</span>
+              <span>{data?.deactivated}</span>
             </div>
           </Styles.ProfileInformation>
         </Styles.Main>

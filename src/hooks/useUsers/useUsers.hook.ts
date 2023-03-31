@@ -1,9 +1,10 @@
 import {useQuery} from '@tanstack/react-query'
 import {useRouter} from 'next/router'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 
 import {getAnalystList} from '@/src/services/configuration/users/getUsers'
 import {getProfileTypeAccessList} from '../../services/configuration/profileTypeAccess'
+import {SortOrder} from './useUsers'
 
 export const useUsers = () => {
   const {
@@ -11,29 +12,33 @@ export const useUsers = () => {
   } = useRouter()
 
   const [page, setPage] = useState(Number(currentPage ?? 0))
+  const [search, setSearch] = useState<string>('')
+  const [orderBy, setOrderBy] = useState<SortOrder | null>({
+    name: 'createdAt',
+    direction: 'desc',
+  })
 
-  const onNextPage = () => {
-    setPage(prevState => prevState + 1)
+  useEffect(() => {
+    setPage(Number(currentPage ?? 0))
+  }, [currentPage])
+
+  const onNextPage = (page: number) => {
+    setPage(page)
   }
-
-  const onPrevPage = () => {
-    setPage(prevState => prevState - 1)
-  }
-
-  const {data: typeAccessList, isLoading} = useQuery(
-    ['typeAccessList'],
-    getProfileTypeAccessList
-  )
 
   const data = useQuery({
-    queryKey: ['analystList', page, currentPage, isLoading],
+    queryKey: ['analystList', page, search, orderBy],
     queryFn: async () => {
-      if (isLoading) return
-      if (!typeAccessList) return
-      const {results: typeAccesses} = typeAccessList
+      const {results: typeAccesses} = await getProfileTypeAccessList()
 
+      const direction: string = orderBy?.direction === 'asc' ? '' : '-'
+      const name: string = orderBy?.name ? orderBy.name : 'createdAt'
+      const sortOrder: string = `${direction}${name}`
+      console.log(sortOrder)
       const {data, meta} = await getAnalystList({
         page: Number(currentPage ?? page),
+        q: search,
+        orderBy: sortOrder,
       })
 
       const customData = data.map(item => {
@@ -67,11 +72,14 @@ export const useUsers = () => {
 
       return {results: customData || [], meta}
     },
+    keepPreviousData: true,
   })
 
   return {
     ...data,
     onNextPage,
-    onPrevPage,
+    page,
+    setSearch,
+    setOrderBy,
   }
 }

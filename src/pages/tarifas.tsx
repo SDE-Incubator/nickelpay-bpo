@@ -1,5 +1,5 @@
-import { TariffsTemplate } from "../templates/tariffs/tariffs.template";
+import {TariffsTemplate} from '../components/templates/tariffs/tariffs.template'
 
 export default function Tariffs() {
-  return <TariffsTemplate/>
+  return <TariffsTemplate />
 }

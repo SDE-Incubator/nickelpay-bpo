@@ -1,18 +1,9 @@
 import {Button} from '@/src/components/button'
 import MUIDataTable from 'mui-datatables'
-import { useRouter } from 'next/router'
+import {useRouter} from 'next/router'
 
 import * as Styles from './customRates.styles'
 
-const columns = [
-  'Nome da tarífa',
-  'Descrição',
-  'Categoria',
-  'Valor',
-  'Recorrência',
-  'Cobrança',
-  '',
-]
 const data = [
   [
     'Tarifa especial',
@@ -21,15 +12,7 @@ const data = [
     'R$ 5,00',
     'Diária',
     'Inativa',
-    <Button
-      textcolor="#756B6B"
-      width="7rem"
-      height="2.5rem"
-      bordercolor="#756B6B"
-      variant="outlined"
-    >
-      Ver Mais
-    </Button>,
+    'Ver mais',
   ],
   [
     'Tarifa especial',
@@ -38,15 +21,7 @@ const data = [
     'R$ 5,00',
     'Diária',
     'Inativa',
-    <Button
-      textcolor="#756B6B"
-      width="7rem"
-      height="2.5rem"
-      bordercolor="#756B6B"
-      variant="outlined"
-    >
-      Ver Mais
-    </Button>,
+    'Ver mais',
   ],
   [
     'Tarifa especial',
@@ -55,15 +30,7 @@ const data = [
     'R$ 5,00',
     'Diária',
     'Inativa',
-    <Button
-      textcolor="#756B6B"
-      width="7rem"
-      height="2.5rem"
-      bordercolor="#756B6B"
-      variant="outlined"
-    >
-      Ver Mais
-    </Button>,
+    'Ver mais',
   ],
   [
     'Tarifa especial',
@@ -72,15 +39,7 @@ const data = [
     'R$ 5,00',
     'Diária',
     'Inativa',
-    <Button
-      textcolor="#756B6B"
-      width="7rem"
-      height="2.5rem"
-      bordercolor="#756B6B"
-      variant="outlined"
-    >
-      Ver Mais
-    </Button>,
+    'Ver mais',
   ],
   [
     'Tarifa especial',
@@ -89,15 +48,7 @@ const data = [
     'R$ 5,00',
     'Diária',
     'Inativa',
-    <Button
-      textcolor="#756B6B"
-      width="7rem"
-      height="2.5rem"
-      bordercolor="#756B6B"
-      variant="outlined"
-    >
-      Ver Mais
-    </Button>,
+    'Ver mais',
   ],
 ]
 const options = {
@@ -112,8 +63,47 @@ const options = {
   search: false,
 }
 
+export function CustomizedTariffsTemplate() {
+  const {pathname, push} = useRouter()
 
-export function CustomRatesTemplate() {
+  const columns = [
+    {
+      name: 'Nome da tarífa',
+    },
+    {
+      name: 'Descrição',
+    },
+    {
+      name: 'Categoria',
+    },
+    {
+      name: 'Valor',
+    },
+    {
+      name: 'Recorrência',
+    },
+    {
+      name: 'Cobrança',
+    },
+    {
+      name: '',
+      options: {
+        customBodyRender: (value: string) => (
+          <Button
+            textcolor="#756B6B"
+            width="7rem"
+            height="2.5rem"
+            bordercolor="#756B6B"
+            variant="outlined"
+            onClick={() => push(`${pathname}/tarifas`)}
+          >
+            {value}
+          </Button>
+        ),
+      },
+    },
+  ]
+
   return (
     <Styles.Container>
       <Styles.Content>
@@ -124,7 +114,7 @@ export function CustomRatesTemplate() {
 
               <div>
                 <Styles.Text>Customização</Styles.Text>
-                <Styles.Text>Tarífas personalizadas</Styles.Text>
+                <Styles.Text>Tarifas personalizadas</Styles.Text>
               </div>
             </Styles.TextContent>
           </div>

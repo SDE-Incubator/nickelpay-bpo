@@ -49,7 +49,7 @@ export function TariffsTemplate() {
           <Styles.StandardRates>
             <Typography variant="h6">Tarifas padrão</Typography>
             <Styles.ContentStandardRates>
-              {data.results.map((result, index) => (
+              {data.results.map(result => (
                 <Styles.Information key={result._id}>
                   <Typography>{DICTIONARY[result.type]}</Typography>
                   <Styles.EditableValue>

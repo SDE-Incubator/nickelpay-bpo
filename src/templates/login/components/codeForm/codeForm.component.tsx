@@ -6,11 +6,13 @@ import {Button} from '@/src/components/button'
 import {Input} from '../../../../components/input'
 import {codeFormProps} from './codeForm'
 import {Text} from '@/src/components/text'
-import {TLoginForm} from '../../login'
+import {LoginFormValidator} from '../../validators'
 
 export function CodeForm({isSubmitting, onClickBack}: codeFormProps) {
   const {handleSubmit, handleBlur, handleChange, values, errors} =
-    useFormikContext<TLoginForm>()
+    useFormikContext<LoginFormValidator>()
+
+  console.log({errors})
 
   return (
     <>

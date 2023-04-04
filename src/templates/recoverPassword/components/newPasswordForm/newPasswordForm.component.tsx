@@ -9,17 +9,22 @@ import {TNewPasswordForm} from '../../recoverPassword'
 export function NewPasswordForm({onNavigate}: NewPasswordFormProps) {
   const {handleSubmit, handleChange, handleBlur, values, errors, isSubmitting} =
     useFormikContext<TNewPasswordForm>()
-  console.log('isSubmitting', isSubmitting)
+
   return (
     <>
-      <Text title="Registrar nova senha" textsize='1.625rem' fontweight='500' marginbottom="1.2rem" />
+      <Text
+        title="Registrar nova senha"
+        textsize="1.625rem"
+        fontweight="500"
+        marginbottom="1.2rem"
+      />
       <Text
         title="Você solicitou a alteração da sua senha, basta apenas registrar a nova senha e logar novamente"
         marginbottom="4.5rem"
-        textsize='1rem'
+        textsize="1rem"
       />
 
-      <form className='contentInputNewPassword' onSubmit={handleSubmit}>
+      <form className="contentInputNewPassword" onSubmit={handleSubmit}>
         <Input
           label="Nova senha"
           name="newPassword1"

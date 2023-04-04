@@ -1,5 +1,5 @@
-import {RecoverPasswordTemplate} from "../templates/recoverPassword/recoverPassword.template";
+import {RecoverPasswordTemplate} from '../templates/recoverPassword'
 
 export default function RecoverPassword() {
-    return <RecoverPasswordTemplate />
+  return <RecoverPasswordTemplate />
 }

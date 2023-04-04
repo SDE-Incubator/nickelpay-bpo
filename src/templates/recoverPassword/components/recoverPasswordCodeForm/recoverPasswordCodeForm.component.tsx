@@ -1,7 +1,6 @@
 import {useRouter} from 'next/router'
 import {useFormikContext} from 'formik'
 import {useEffect, useState} from 'react'
-import {setCookie} from 'cookies-next'
 import {AxiosError} from 'axios'
 import {useMutation} from '@tanstack/react-query'
 
@@ -27,7 +26,7 @@ export function RecoverPasswordCodeForm() {
       const response = await getCodeToRecoverPassword({
         username: values.username,
       })
-      setCookie('@nickelpay/token', response.token)
+      localStorage.setItem('@nickelpay/token', response.token)
       return response
     },
     {

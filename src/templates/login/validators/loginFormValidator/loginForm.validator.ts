@@ -1,7 +1,6 @@
 import * as Yup from 'yup'
-import {TloginForm} from './loginForm'
 
-export const loginFormValidation = Yup.object<TloginForm>({
+export const loginFormValidation = Yup.object({
   username: Yup.string()
     .email('Email inválido')
     .required('Email não pode ser vazio'),

@@ -28,7 +28,7 @@ import {
 } from './validators/recoverPassword.validator'
 
 export function RecoverPasswordTemplate() {
-  const [screen, setScreen] = useState<RecoverPasswordScreens>('CODE')
+  const [screen, setScreen] = useState<RecoverPasswordScreens>('EMAIL')
 
   const router = useRouter()
 
@@ -41,7 +41,6 @@ export function RecoverPasswordTemplate() {
       setSubmitting,
     }: TRecoverPasswordProps) => {
       let response = null
-      console.log('aqui')
       switch (screen) {
         case 'EMAIL':
           response = await getCodeToRecoverPassword({username})
@@ -73,14 +72,12 @@ export function RecoverPasswordTemplate() {
           case 'CODE':
             return handleNextScreen('NEW_PASSWORD')
           case 'NEW_PASSWORD':
-            const result = await SWAlert.fire({
+            await SWAlert.fire({
               icon: 'success',
               title: 'Senha redefinida com sucesso!',
               confirmButtonText: 'Ir para o login',
             })
-            if (result.isConfirmed) {
-              router.push('/entrar')
-            }
+            router.push('/entrar')
           default:
             return handleNextScreen('CODE')
         }

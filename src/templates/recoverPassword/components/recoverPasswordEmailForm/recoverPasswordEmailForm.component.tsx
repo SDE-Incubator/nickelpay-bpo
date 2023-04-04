@@ -18,15 +18,18 @@ export function RecoverPasswordEmailForm() {
     router.push('/entrar')
   }
 
-  console.log('errors', errors)
-
   return (
     <Container>
-      <Text title="Redefinir senha" textsize='1.625rem' fontweight='500' marginbottom="1.2rem" />
+      <Text
+        title="Redefinir senha"
+        textsize="1.625rem"
+        fontweight="500"
+        marginbottom="1.2rem"
+      />
       <Text
         title="Digite seu email de cadastro e lhe enviaremos as informações por email"
         marginbottom="4.5rem"
-        textsize='1rem'
+        textsize="1rem"
       />
 
       <Form onSubmit={handleSubmit}>

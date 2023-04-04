@@ -1,15 +1,18 @@
+import {useRouter} from 'next/router'
 import {useMemo, useState} from 'react'
+import {AxiosError} from 'axios'
+import {useMutation} from '@tanstack/react-query'
+
+import {SWAlert} from '@/src/libs/toast'
 import {SideLogo} from '../../components/sideLogo'
 import {Container, ImageContainer, Content} from './login.styles'
 import {LoginForm} from './components/loginForm'
 import {CodeForm} from './components/codeForm'
 import {Formik} from 'formik'
 import {TLoginForm, TLoginScreenRender, TLoginScreens} from './login'
-import {useMutation} from '@tanstack/react-query'
 import {login, loginConfirmationCode} from '@/src/services/authentication/login'
-import {AxiosError} from 'axios'
-import {SWAlert} from '@/src/libs/toast'
-import {useRouter} from 'next/router'
+import {loginFormValidation} from './validators/loginFormValidator/loginForm.validator'
+import {codeFormValidation} from './validators'
 
 export function LoginTemplate() {
   const [screen, setScreen] = useState<TLoginScreens>('LOGIN')
@@ -73,6 +76,9 @@ export function LoginTemplate() {
             password: '',
             code: '',
           }}
+          validationSchema={
+            screen === 'LOGIN' ? loginFormValidation : codeFormValidation
+          }
           onSubmit={handleLogin}
         >
           {currentScreen}

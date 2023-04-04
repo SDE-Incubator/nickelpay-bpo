@@ -1,5 +1,5 @@
-import { LoginTemplate } from "../templates/login/login.template";
+import {LoginTemplate} from '../components/templates/login'
 
 export default function Login() {
-  return <LoginTemplate />;
+  return <LoginTemplate />
 }

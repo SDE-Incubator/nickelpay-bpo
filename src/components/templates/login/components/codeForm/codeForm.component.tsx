@@ -3,7 +3,7 @@ import {useFormikContext} from 'formik'
 
 import * as Styles from './codeForm.styles'
 import {Button} from '@/src/components/button'
-import {Input} from '../../../../components/input'
+import {Input} from '@/src/components/input'
 import {codeFormProps} from './codeForm'
 import {Text} from '@/src/components/text'
 import {LoginFormValidator} from '../../validators'

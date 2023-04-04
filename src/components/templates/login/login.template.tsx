@@ -4,7 +4,7 @@ import {AxiosError} from 'axios'
 import {useMutation} from '@tanstack/react-query'
 
 import {SWAlert} from '@/src/libs/toast'
-import {SideLogo} from '../../components/sideLogo'
+import {SideLogo} from '@/src/components/sideLogo'
 import {Container, ImageContainer, Content} from './login.styles'
 import {LoginForm} from './components/loginForm'
 import {CodeForm} from './components/codeForm'

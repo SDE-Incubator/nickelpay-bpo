@@ -1,5 +1,5 @@
 import {Button} from '@/src/components/button'
-import {Input} from '../../../../components/input'
+import {Input} from '@/src/components/input'
 import {CircularProgress} from '@mui/material'
 import {useFormikContext} from 'formik'
 import {LoginFormProps} from './loginForm'

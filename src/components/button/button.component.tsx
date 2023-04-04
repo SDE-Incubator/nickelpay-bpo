@@ -9,8 +9,8 @@ export function Button({
   ...rest
 }: ButtonStylesProps) {
   return (
-      <Styles.Container {...rest} role="button" disabled={loading}>
-        {loading ? <CircularProgress /> : children}
-      </Styles.Container>
+    <Styles.Container {...rest} role="button" disabled={loading}>
+      {loading ? <CircularProgress /> : children}
+    </Styles.Container>
   )
 }

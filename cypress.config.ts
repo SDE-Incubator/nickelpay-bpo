@@ -1,5 +1,4 @@
 import {defineConfig} from 'cypress'
-import viteConfig from './vitest.config'
 
 export default defineConfig({
   e2e: {
@@ -7,9 +6,8 @@ export default defineConfig({
   },
   component: {
     devServer: {
-      framework: 'react',
-      bundler: 'vite',
-      viteConfig,
+      framework: 'next',
+      bundler: 'webpack',
     },
   },
 })
